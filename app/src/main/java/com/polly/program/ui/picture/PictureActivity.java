@@ -36,10 +36,6 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class PictureActivity extends BaseActivity {
 
-    @Bind(R.id.iv_title_save)
-    ImageView mIvSave;
-    @Bind(R.id.iv_title_share)
-    ImageView mIvShare;
     @Bind(R.id.iv_picture)
     ImageView mImageView;
 
@@ -54,8 +50,6 @@ public class PictureActivity extends BaseActivity {
     @Override
     protected void initTitleBar() {
         setBack();
-        mIvSave.setVisibility(View.VISIBLE);
-        mIvShare.setVisibility(View.VISIBLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
@@ -71,20 +65,11 @@ public class PictureActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-        mIvSave.setOnClickListener(this);
-        mIvShare.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_title_save:
-                saveImageToGallery();
-                break;
-            case R.id.iv_title_share:
-                toast("分享");
-                break;
-        }
+
     }
 
     private void setupPhotoAttacher() {
@@ -95,10 +80,6 @@ public class PictureActivity extends BaseActivity {
                 hideOrShowTitlebar();
             }
         });
-    }
-
-    private void saveImageToGallery() {
-
     }
 
     @Override

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import com.polly.program.R;
 import com.polly.program.base.BaseAdapter;
 import com.polly.program.bean.response.response.GankIoResponse;
-import com.polly.program.util.OnClickEvent;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;

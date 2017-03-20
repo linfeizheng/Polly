@@ -12,9 +12,8 @@ import com.polly.program.Constants;
 import com.polly.program.R;
 import com.polly.program.base.BaseAdapter;
 import com.polly.program.bean.response.response.GankIoResponse;
-import com.polly.program.bean.response.response.JuejinResponse;
 import com.polly.program.ui.article.ArticleActivity;
-import com.polly.program.util.BitmapUtils;
+import com.polly.program.util.OnClickEvent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,12 +34,12 @@ public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter
         final GankIoResponse response = mData.get(position);
         holder.mTvTitle.setText(response.getDesc() != null ? response.getDesc() : "");
         holder.mTvDate.setText(response.getPublishAt() != null ? response.getPublishAt() : "");
-//        BitmapUtils.loadCircleImg(mContext, response.getImgUrl(), holder.mIvAvatar);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new OnClickEvent() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(mContext, ArticleActivity.class);
-                intent.putExtra(Constants.INTENT_EXTRA_TITLE, response.getUrl());
+                intent.putExtra(Constants.INTENT_EXTRA_ID, response.getUrl());
+                intent.putExtra(Constants.INTENT_EXTRA_TITLE, response.getDesc());
                 mContext.startActivity(intent);
             }
         });

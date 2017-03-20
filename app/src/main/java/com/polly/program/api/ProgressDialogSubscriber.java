@@ -18,21 +18,26 @@ public abstract class ProgressDialogSubscriber<T> extends Subscriber<BaseRespons
     }
 
     @Override
+    public void onStart() {
+        mView.showProgress();
+    }
+
+    @Override
     public void onCompleted() {
         mView.hideProgress();
     }
 
     @Override
     public void onError(Throwable t) {
+        mView.hideProgress();
         Logger.e(t, "获取数据失败");
         if (t instanceof SocketTimeoutException) {
             mView.showToast("请求超时，请稍后重试...");
         } else if (t instanceof ConnectException) {
-            mView.showToast("请检查网络是否连接ConnectException");
+            mView.showToast("请检查网络是否连接");
         } else {
             mView.showToast("请检查网络是否连接");
         }
-        mView.hideProgress();
     }
 
     @Override

@@ -45,8 +45,8 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
 //            StatusBarCompat.compat(this, android.R.color.transparent);
 //        }
         ApplicationUtil.addActivity(this);
-        initTitleBar();
         initData();
+        initTitleBar();
         initListener();
     }
 
@@ -71,7 +71,7 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
             imageBack.setOnClickListener(new OnClickEvent() {
                 @Override
                 public void onSingleClick(View v) {
-                    finish();
+                    onBackPressed();
                 }
             });
         }

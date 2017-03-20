@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
-public class BitmapUtils {
+public class ImageUtil {
 
     public static void loadImg(Context context, String url, ImageView imageView) {
         Glide.with(context).load(url).centerCrop().into(imageView);

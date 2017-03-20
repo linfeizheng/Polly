@@ -1,11 +1,13 @@
 package com.polly.program.bean.response.response;
 
+import java.io.Serializable;
+
 /**
  * @author linfeizheng
  * @date 2017/3/11 13:47
  */
 
-public class GankIoResponse {
+public class GankIoResponse implements Serializable {
 
     private String _id;
     private String createdAt;
