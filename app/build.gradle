@@ -1,0 +1,59 @@
+apply plugin: "com.android.application"
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
+    defaultConfig {
+        applicationId "com.polly.program"
+        minSdkVersion 14
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true//去掉不用资源
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+
+            buildConfigField "String", "URL_HEADER", "\"http://gank.io/api/data/\""
+        }
+        debug {
+            minifyEnabled false
+
+            buildConfigField "String", "URL_HEADER", "\"http://gank.io/api/data/\""
+        }
+    }
+}
+
+def supportVersion = "24.1.1"
+def retrofitVersion = "2.2.0"
+def okhttpVersion = "3.6.0"
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile "com.android.support:appcompat-v7:$supportVersion"
+    compile "com.android.support:design:$supportVersion"
+    compile "com.android.support:recyclerview-v7:$supportVersion"
+    compile "com.android.support:support-v4:$supportVersion"
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+    compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    compile 'io.reactivex:rxjava:latest.release'
+    compile 'io.reactivex:rxandroid:latest.release'
+    compile 'com.google.code.gson:gson:latest.release'
+    compile 'com.orhanobut:logger:latest.release'
+    compile 'com.github.bumptech.glide:glide:latest.release'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:latest.release'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:latest.release'
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'org.jsoup:jsoup:1.10.2'
+    compile files('src/main/libs/tbs_sdk_v3.1.0.1034_43100.jar')
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+}
