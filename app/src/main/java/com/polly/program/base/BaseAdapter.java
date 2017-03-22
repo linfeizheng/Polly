@@ -54,7 +54,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
     }
 
     @Override
-    public abstract void onBindViewHolder(VH holder, int arg1);
+    public abstract void onBindViewHolder(VH holder, int position);
 
     @Override
     public abstract VH onCreateViewHolder(ViewGroup parent, int position);

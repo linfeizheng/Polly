@@ -1,4 +1,4 @@
-package com.polly.program.ui.main.gif;
+package com.polly.program.ui.main.meizi;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.polly.program.R;
 import com.polly.program.base.BaseAdapter;
-import com.polly.program.bean.response.response.GankIoResponse;
+import com.polly.program.bean.response.GankIoResponse;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -19,9 +19,9 @@ import butterknife.ButterKnife;
  * @date 2017/3/14 13:20
  */
 
-public class GifAdapter extends BaseAdapter<GankIoResponse, GifAdapter.Holder> {
+public class MeiziAdapter extends BaseAdapter<GankIoResponse, MeiziAdapter.Holder> {
 
-    public GifAdapter(Context mContext) {
+    public MeiziAdapter(Context mContext) {
         super(mContext);
     }
 
@@ -40,7 +40,7 @@ public class GifAdapter extends BaseAdapter<GankIoResponse, GifAdapter.Holder> {
     }
 
     @Override
-    public GifAdapter.Holder onCreateViewHolder(ViewGroup viewGroup, int position) {
+    public MeiziAdapter.Holder onCreateViewHolder(ViewGroup viewGroup, int position) {
         View itemView = mInflater.inflate(R.layout.listitem_gif, viewGroup, false);
         return new Holder(itemView);
     }

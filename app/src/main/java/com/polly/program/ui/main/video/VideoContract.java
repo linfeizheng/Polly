@@ -1,8 +1,9 @@
-package com.polly.program.ui.main.home;
+package com.polly.program.ui.main.video;
 
 import com.polly.program.base.BasePresenter;
 import com.polly.program.base.IBaseView;
 import com.polly.program.bean.response.GankIoResponse;
+import com.polly.program.bean.response.VideoResponse;
 
 import java.util.List;
 
@@ -11,15 +12,15 @@ import java.util.List;
  * @date 2017/3/11 14:04
  */
 
-public interface HomeContract {
+public interface VideoContract {
 
     interface View extends IBaseView {
-        public void showData(List<GankIoResponse> responses);
+        public void showData(List<VideoResponse.Video> responses);
     }
 
     interface Presenter extends BasePresenter {
 
-        public void getData(String source, int page);
+        public void getVideo(String source);
 
     }
 

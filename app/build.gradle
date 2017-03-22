@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.1"
     defaultConfig {
         applicationId "com.polly.program"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -56,4 +56,5 @@ dependencies {
     compile files('src/main/libs/tbs_sdk_v3.1.0.1034_43100.jar')
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'fm.jiecao:jiecaovideoplayer:5.5.2'
 }

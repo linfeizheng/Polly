@@ -1,4 +1,4 @@
-package com.polly.program.bean.response.response;
+package com.polly.program.bean.response;
 
 /**
  * @author linfeizheng

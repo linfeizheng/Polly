@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.polly.program.R;
 import com.polly.program.base.BaseActivity;
-import com.polly.program.ui.main.gif.GifFragment;
+import com.polly.program.ui.main.meizi.MeiziFragment;
 import com.polly.program.ui.main.home.HomeFragment;
 import com.polly.program.ui.main.video.VideoFragment;
 
@@ -24,7 +24,7 @@ public class MainActivity extends BaseActivity {
     TabLayout mTabLayout;
 
     private HomeFragment mHomeFragment;
-    private GifFragment mGifFragment;
+    private MeiziFragment mMeiziFragment;
     private VideoFragment mVideoFragment;
 
     private TabLayout.Tab mTabOne;
@@ -47,13 +47,14 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
         List<Fragment> fragments = new ArrayList<>();
         mHomeFragment = new HomeFragment();
-        mGifFragment = new GifFragment();
+        mMeiziFragment = new MeiziFragment();
         mVideoFragment = new VideoFragment();
         fragments.add(mHomeFragment);
-        fragments.add(mGifFragment);
+        fragments.add(mMeiziFragment);
         fragments.add(mVideoFragment);
         mAdapter = new MainAdapter(getSupportFragmentManager(), fragments);
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setupWithViewPager(mViewPager);
 
         mTabOne = mTabLayout.getTabAt(0);

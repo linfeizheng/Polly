@@ -5,13 +5,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.polly.program.Constants;
 import com.polly.program.R;
 import com.polly.program.base.BaseFragment;
-import com.polly.program.bean.response.response.GankIoResponse;
-import com.polly.program.bean.response.response.JuejinResponse;
+import com.polly.program.bean.response.GankIoResponse;
 import com.polly.program.ui.main.home.HomeContract;
 import com.polly.program.ui.main.home.HomePresenter;
 

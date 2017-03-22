@@ -59,7 +59,7 @@ public class ArticleActivity extends BaseActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView webView, String s) {
                 Intent intent = new Intent(mContext, ArticleActivity.class);
-                intent.putExtra(Constants.INTENT_EXTRA_TITLE, s);
+                intent.putExtra(Constants.INTENT_EXTRA_ID, s);
                 startActivity(intent);
                 return true;
             }

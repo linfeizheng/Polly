@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.polly.program.Constants;
 import com.polly.program.R;
 import com.polly.program.base.BaseAdapter;
-import com.polly.program.bean.response.response.GankIoResponse;
+import com.polly.program.bean.response.GankIoResponse;
 import com.polly.program.ui.article.ArticleActivity;
 import com.polly.program.util.OnClickEvent;
 

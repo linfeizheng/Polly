@@ -86,6 +86,5 @@ public class PictureActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mPhotoViewAttacher.cleanup();
-        ButterKnife.unbind(this);
     }
 }

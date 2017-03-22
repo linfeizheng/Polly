@@ -6,9 +6,10 @@
 
     <include layout="@layout/view_header"/>
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_video"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="video"/>
+        android:clipToPadding="true"
+        android:padding="@dimen/dp3"/>
 </LinearLayout>

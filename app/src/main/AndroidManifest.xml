@@ -32,6 +32,11 @@
             android:name=".ui.picture.PictureActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".ui.video.VideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

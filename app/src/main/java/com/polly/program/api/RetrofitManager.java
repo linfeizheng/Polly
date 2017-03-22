@@ -29,22 +29,18 @@ public class RetrofitManager {
 
     public static final String BASE_URL = BuildConfig.URL_HEADER;
 
-    private static RetrofitService mService;
+    private static RetrofitService mService1;
+    private static RetrofitService mService2;
 
     public static final String FROM = "android";
     public static final String IMEI = "866656025658982";
     public static String TOKEN;
 
-    public static RetrofitService getInstance() {
-        if (mService == null) {
+    public static RetrofitService getGankInstance() {
+        if (mService1 == null) {
             synchronized (RetrofitManager.class) {
-                if (mService == null) {
+                if (mService1 == null) {
                     OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//                    builder.addInterceptor(headerInterceptor);
-//                    if (BuildConfig.DEBUG) {
-//                        LoggingInterceptor logging = new LoggingInterceptor();
-//                        builder.addInterceptor(logging);
-//                    }
                     if (BuildConfig.DEBUG) {
                         // http请求Log信息拦截器
                         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -61,20 +57,51 @@ public class RetrofitManager {
                             .client(okHttpClient)
                             .baseUrl(BASE_URL)
                             .build();
-                    mService = retrofit.create(RetrofitService.class);
+                    mService1 = retrofit.create(RetrofitService.class);
                 }
             }
 
         }
-        return mService;
+        return mService1;
+    }
+
+    public static final String URL_163 = "http://c.m.163.com/";
+
+    public static RetrofitService get163Instance() {
+        if (mService2 == null) {
+            synchronized (RetrofitManager.class) {
+                if (mService2 == null) {
+                    OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                    if (BuildConfig.DEBUG) {
+                        // http请求Log信息拦截器
+                        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+                        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+                        builder.addInterceptor(loggingInterceptor);// 日志记录
+                    }
+                    builder.addInterceptor(headerInterceptor);
+                    builder.connectTimeout(20, TimeUnit.SECONDS)
+                            .readTimeout(20, TimeUnit.SECONDS)
+                            .writeTimeout(20, TimeUnit.SECONDS);
+                    OkHttpClient okHttpClient = builder.build();
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .client(okHttpClient)
+                            .baseUrl(URL_163)
+                            .build();
+                    mService2 = retrofit.create(RetrofitService.class);
+                }
+            }
+
+        }
+        return mService2;
     }
 
     private static Interceptor headerInterceptor = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request.Builder builder = chain.request().newBuilder();
-            builder.addHeader("from", FROM)
-                    .addHeader("imei", IMEI);
+            builder.addHeader("Content-Type", "application/json");
             if (TOKEN != null)
                 builder.addHeader("token", TOKEN);
             Request request = builder.build();

@@ -1,4 +1,4 @@
-package com.polly.program.ui.main.gif;
+package com.polly.program.ui.main.meizi;
 
 import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.polly.program.Constants;
 import com.polly.program.R;
 import com.polly.program.base.BaseFragment;
-import com.polly.program.bean.response.response.GankIoResponse;
+import com.polly.program.bean.response.GankIoResponse;
 import com.polly.program.ui.picture.PictureActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -27,13 +27,13 @@ import rx.functions.Action1;
  * @date 2017/3/10 16:00
  */
 
-public class GifFragment extends BaseFragment<GifPresenter> implements GifAdapter.OnItemClickListener, GifContract.View {
+public class MeiziFragment extends BaseFragment<MeiziPresenter> implements MeiziAdapter.OnItemClickListener, MeiziContract.View {
 
     @Bind(R.id.recyclerview_gif)
     RecyclerView mRecyclerView;
 
     private StaggeredGridLayoutManager mLayoutManager;
-    private GifAdapter mAdapter;
+    private MeiziAdapter mAdapter;
 
     private int page = 1;
     private int lastVisibleItem;
@@ -45,13 +45,13 @@ public class GifFragment extends BaseFragment<GifPresenter> implements GifAdapte
 
     @Override
     protected void initTitleBar() {
-        setTitle("Gif");
+        setTitle("美女");
     }
 
     @Override
     protected void initData() {
-        mPresenter = new GifPresenter(this);
-        mAdapter = new GifAdapter(mContext);
+        mPresenter = new MeiziPresenter(this);
+        mAdapter = new MeiziAdapter(mContext);
     }
 
     @Override

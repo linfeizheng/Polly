@@ -1,9 +1,9 @@
-package com.polly.program.ui.main.gif;
+package com.polly.program.ui.main.meizi;
 
 import com.polly.program.api.ProgressDialogSubscriber;
 import com.polly.program.api.RetrofitManager;
 import com.polly.program.base.BasePresenterImpl;
-import com.polly.program.bean.response.response.GankIoResponse;
+import com.polly.program.bean.response.GankIoResponse;
 
 import java.util.List;
 
@@ -15,15 +15,15 @@ import rx.schedulers.Schedulers;
  * @date 2017/3/11 14:05
  */
 
-public class GifPresenter extends BasePresenterImpl<GifContract.View> implements GifContract.Presenter {
+public class MeiziPresenter extends BasePresenterImpl<MeiziContract.View> implements MeiziContract.Presenter {
 
-    public GifPresenter(GifContract.View mView) {
+    public MeiziPresenter(MeiziContract.View mView) {
         super(mView);
     }
 
     @Override
     public void getData(int page) {
-        mRxManager.add(RetrofitManager.getInstance().getData("福利", String.valueOf(page))
+        mRxManager.add(RetrofitManager.getGankInstance().getArticle("福利", String.valueOf(page))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ProgressDialogSubscriber<List<GankIoResponse>>(mView) {
                     @Override
