@@ -10,8 +10,7 @@
     <com.polly.program.widget.CustomVideoPlayer
         android:id="@+id/videoplayer_video"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:scaleType="centerCrop"/>
+        android:layout_height="170dp"/>
 
     <TextView
         android:id="@+id/tv_video_title"

@@ -60,18 +60,11 @@ public class VideoFragment extends BaseFragment<VideoPresenter> implements Video
 
     @Override
     protected void initListener() {
-        mAdapter.setListener(new VideoAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new VideoAdapter.OnItemClickListener() {
             @Override
             public void onClick(VideoResponse.Video video, ImageView mImageView) {
-                Intent intent = new Intent(mContext, VideoActivity.class);
-                intent.putExtra(Constants.INTENT_EXTRA_OBJECT, video);
-                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext, mImageView, VideoActivity.TAG);
-                try {
-                    ActivityCompat.startActivity(mContext, intent, optionsCompat.toBundle());
-                } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                    startActivity(intent);
-                }
+                Intent intent = VideoActivity.getIntent(mContext, video);
+                startActivity(intent);
             }
         });
     }

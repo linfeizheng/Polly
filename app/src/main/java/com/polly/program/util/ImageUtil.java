@@ -13,7 +13,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 public class ImageUtil {
 
     public static void loadImg(Context context, String url, ImageView imageView) {
-        Glide.with(context).load(url).centerCrop().into(imageView);
+        Glide.with(context).load(url).crossFade().centerCrop().into(imageView);
     }
 
     public static void loadCircleImg(final Context context, String url, final ImageView imageView) {

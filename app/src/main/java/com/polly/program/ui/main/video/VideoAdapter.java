@@ -69,7 +69,7 @@ public class VideoAdapter extends BaseAdapter<VideoResponse.Video, VideoAdapter.
 
     private OnItemClickListener listener;
 
-    public void setListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 }

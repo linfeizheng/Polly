@@ -1,5 +1,7 @@
 package com.polly.program.ui.video;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.widget.TextView;
@@ -8,6 +10,7 @@ import com.polly.program.Constants;
 import com.polly.program.R;
 import com.polly.program.base.BaseActivity;
 import com.polly.program.bean.response.VideoResponse;
+import com.polly.program.util.AnimationUtil;
 import com.polly.program.util.ImageUtil;
 import com.polly.program.widget.CustomVideoPlayer;
 import com.polly.program.widget.StatusBarCompat;
@@ -69,5 +72,17 @@ public class VideoActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         JCVideoPlayer.releaseAllVideos();
+    }
+
+    public static Intent getIntent(Activity activity, VideoResponse.Video video) {
+        Intent intent = new Intent(activity, VideoActivity.class);
+        intent.putExtra(Constants.INTENT_EXTRA_OBJECT, video);
+        return intent;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        AnimationUtil.verticalFinish(mContext);
     }
 }

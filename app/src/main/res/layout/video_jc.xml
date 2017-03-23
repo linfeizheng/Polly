@@ -16,13 +16,8 @@
         android:id="@+id/thumb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="#000000"/>
+        android:background="@android:color/black"
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:id="@+id/layout_bottom"
@@ -103,10 +98,9 @@
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="23dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingLeft="14dp"
-            android:scaleType="centerInside"
             android:src="@mipmap/ic_back"/>
 
         <TextView

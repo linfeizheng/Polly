@@ -33,7 +33,6 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
  * @author linfeizheng
  * @date 2017/3/22 17:40
  */
-
 public class CustomVideoPlayer extends JCVideoPlayer {
 
     protected static Timer DISMISS_CONTROL_VIEW_TIMER;
@@ -81,10 +80,9 @@ public class CustomVideoPlayer extends JCVideoPlayer {
             backButton.setVisibility(View.VISIBLE);
             tinyBackImageView.setVisibility(View.INVISIBLE);
             changeStartButtonSize((int) getResources().getDimension(R.dimen.jc_start_button_w_h_fullscreen));
-        } else if (currentScreen == SCREEN_LAYOUT_NORMAL
-                || currentScreen == SCREEN_LAYOUT_LIST) {
+        } else if (currentScreen == SCREEN_LAYOUT_NORMAL || currentScreen == SCREEN_LAYOUT_LIST) {
             fullscreenButton.setImageResource(R.drawable.jc_enlarge);
-            backButton.setVisibility(View.VISIBLE);
+            backButton.setVisibility(View.GONE);
             tinyBackImageView.setVisibility(View.INVISIBLE);
             changeStartButtonSize((int) getResources().getDimension(R.dimen.jc_start_button_w_h_normal));
         } else if (currentScreen == SCREEN_WINDOW_TINY) {

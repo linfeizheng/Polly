@@ -149,6 +149,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        AnimationUtil.horizontalStart(mContext);
+        AnimationUtil.verticalStart(mContext);
     }
 }
