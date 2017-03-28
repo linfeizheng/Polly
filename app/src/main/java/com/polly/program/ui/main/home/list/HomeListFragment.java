@@ -16,6 +16,7 @@ import com.polly.program.ui.main.home.HomePresenter;
 import java.util.List;
 
 import butterknife.Bind;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 /**
  * @author linfeizheng
@@ -59,7 +60,9 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new HomeListAdapter(mContext);
-        mRecyclerView.setAdapter(mAdapter);
+        ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(mAdapter);
+        scaleInAnimationAdapter.setFirstOnly(false);
+        mRecyclerView.setAdapter(scaleInAnimationAdapter);
         mPresenter.getData(tabName, page);
     }
 

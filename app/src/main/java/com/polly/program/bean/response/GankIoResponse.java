@@ -12,7 +12,7 @@ public class GankIoResponse implements Serializable {
     private String _id;
     private String createdAt;
     private String desc;
-    private String publishAt;
+    private String publishedAt;
     private String source;
     private String type;
     private String url;
@@ -44,11 +44,11 @@ public class GankIoResponse implements Serializable {
     }
 
     public String getPublishAt() {
-        return publishAt;
+        return publishedAt;
     }
 
     public void setPublishAt(String publishAt) {
-        this.publishAt = publishAt;
+        this.publishedAt = publishAt;
     }
 
     public String getSource() {

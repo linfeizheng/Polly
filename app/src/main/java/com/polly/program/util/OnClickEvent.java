@@ -19,6 +19,7 @@ public abstract class OnClickEvent implements View.OnClickListener {
             onSingleClick(v);
         }
         lastClickTime = currentTime;
+        v.setEnabled(true);
     }
 
     public abstract void onSingleClick(View v);
