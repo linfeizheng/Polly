@@ -2,6 +2,7 @@ package com.polly.program.ui.article;
 
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -38,6 +39,9 @@ public class ArticleActivity extends BaseActivity {
             setTitle(title);
         }
         setBack();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         mIvShare.setVisibility(View.VISIBLE);
         mIvShare.setOnClickListener(new OnClickEvent() {
             @Override

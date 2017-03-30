@@ -2,8 +2,6 @@ package com.polly.program.ui.main.home.list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,24 +18,23 @@ import com.polly.program.util.StringUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 
 /**
  * @author linfeizheng
  * @date 2017/3/11 13:45
  */
 
-public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter.Holder> {
+public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter.ViewHolder> {
 
     public HomeListAdapter(Context mContext) {
         super(mContext);
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolderExtend(ViewHolder holder, final int position) {
         final GankIoResponse response = mData.get(position);
         holder.mTvTitle.setText(response.getDesc() != null ? response.getDesc() : "");
-        String publishedAt = response.getPublishAt();
+        String publishedAt = response.getCreatedAt();
         if (!StringUtil.isTrimBlank(publishedAt)) {
             int index = publishedAt.indexOf(".");
             publishedAt = publishedAt.substring(0, index).replace("T", "\t");
@@ -53,15 +50,27 @@ public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter
                 mContext.startActivity(intent);
             }
         });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                remove(position);
+                return true;
+            }
+        });
     }
 
     @Override
-    public HomeListAdapter.Holder onCreateViewHolder(ViewGroup parent, int position) {
+    public ViewHolder onCreateViewHolderExtend(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.listitem_home, parent, false);
-        return new Holder(itemView);
+        return new ViewHolder(itemView);
     }
 
-    class Holder extends RecyclerView.ViewHolder implements AnimateViewHolder {
+    @Override
+    public ViewHolder getViewHolder(View view) {
+        return new ViewHolder(view);
+    }
+
+    class ViewHolder extends BaseAdapter.Holder {
 
         @Bind(R.id.iv_home_avatar)
         ImageView mIvAvatar;
@@ -72,40 +81,14 @@ public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter
         @Bind(R.id.tv_home_date)
         TextView mTvDate;
 
-        public Holder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
+        }
+
+        @Override
+        public void bindViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
         }
 
-        @Override
-        public void preAnimateAddImpl(RecyclerView.ViewHolder holder) {
-            ViewCompat.setTranslationY(itemView, -itemView.getHeight() * 0.3f);
-            ViewCompat.setAlpha(itemView, 0);
-        }
-
-        @Override
-        public void preAnimateRemoveImpl(RecyclerView.ViewHolder holder) {
-
-        }
-
-        @Override
-        public void animateAddImpl(RecyclerView.ViewHolder holder, ViewPropertyAnimatorListener listener) {
-            ViewCompat.animate(itemView)
-                    .translationY(0)
-                    .alpha(1)
-                    .setDuration(300)
-                    .setListener(listener)
-                    .start();
-        }
-
-        @Override
-        public void animateRemoveImpl(RecyclerView.ViewHolder holder, ViewPropertyAnimatorListener listener) {
-            ViewCompat.animate(itemView)
-                    .translationY(-itemView.getHeight() * 0.3f)
-                    .alpha(0)
-                    .setDuration(300)
-                    .setListener(listener)
-                    .start();
-        }
     }
 }

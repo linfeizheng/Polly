@@ -26,7 +26,7 @@ public class MeiziAdapter extends BaseAdapter<GankIoResponse, MeiziAdapter.Holde
     }
 
     @Override
-    public void onBindViewHolder(final Holder holder, int position) {
+    public void onBindViewHolderExtend(final Holder holder, int position) {
         final GankIoResponse response = mData.get(position);
         Picasso.with(mContext).load(response.getUrl()).into(holder.mIvGif);
         holder.mIvGif.setOnClickListener(new View.OnClickListener() {
@@ -40,9 +40,14 @@ public class MeiziAdapter extends BaseAdapter<GankIoResponse, MeiziAdapter.Holde
     }
 
     @Override
-    public MeiziAdapter.Holder onCreateViewHolder(ViewGroup viewGroup, int position) {
-        View itemView = mInflater.inflate(R.layout.listitem_gif, viewGroup, false);
+    public Holder onCreateViewHolderExtend(ViewGroup parent, int viewType) {
+        View itemView = mInflater.inflate(R.layout.listitem_gif, parent, false);
         return new Holder(itemView);
+    }
+
+    @Override
+    public Holder getViewHolder(View view) {
+        return null;
     }
 
     class Holder extends RecyclerView.ViewHolder {

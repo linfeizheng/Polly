@@ -76,16 +76,7 @@ public class VideoFragment extends BaseFragment<VideoPresenter> implements Video
 
     @Override
     public void showData(final List<VideoResponse.Video> responses) {
-        Observable.create(new Observable.OnSubscribe<VideoResponse.Video>() {
-            @Override
-            public void call(Subscriber<? super VideoResponse.Video> subscriber) {
-                if (!subscriber.isUnsubscribed()) {
-                    for (VideoResponse.Video video : responses) {
-                        subscriber.onNext(video);
-                    }
-                }
-            }
-        }).subscribe(new Action1<VideoResponse.Video>() {
+        Observable.from(responses).subscribe(new Action1<VideoResponse.Video>() {
             @Override
             public void call(VideoResponse.Video video) {
                 mAdapter.insert(video);

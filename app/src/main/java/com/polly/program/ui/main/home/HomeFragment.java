@@ -10,7 +10,6 @@ import com.polly.program.Constants;
 import com.polly.program.R;
 import com.polly.program.base.BaseFragment;
 import com.polly.program.ui.main.home.list.HomeListFragment;
-import com.polly.program.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class HomeFragment extends BaseFragment {
     @Bind(R.id.viewpager_home)
     ViewPager mViewPager;
 
-    private String[] mHomeTabInfo = {"Android", "iOS", "拓展资源", "前端", "瞎推荐", "App"};
+    private static final String[] mHomeTabInfo = {"Android", "iOS", "拓展资源", "前端", "瞎推荐", "App"};
     private HomeAdapter mAdapter;
     private List<Fragment> fragments = new ArrayList<>();
 
@@ -51,10 +50,6 @@ public class HomeFragment extends BaseFragment {
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        String tabs = spUtil.getHomeTab();
-        if (!StringUtil.isBlank(tabs)) {
-            mHomeTabInfo = tabs.split(",");
-        }
         if (mHomeTabInfo.length > 4) {
             mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         } else {

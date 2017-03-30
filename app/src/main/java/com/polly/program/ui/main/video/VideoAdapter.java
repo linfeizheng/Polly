@@ -27,7 +27,7 @@ public class VideoAdapter extends BaseAdapter<VideoResponse.Video, VideoAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final Holder holder, int position) {
+    public void onBindViewHolderExtend(final Holder holder, int position) {
         final VideoResponse.Video video = mData.get(position);
         ImageUtil.loadImg(mContext, video.getCover(), holder.mIvVideo);
         ImageUtil.loadCircleImg(mContext, video.getTopicImg(), holder.mIvLogo);
@@ -43,9 +43,14 @@ public class VideoAdapter extends BaseAdapter<VideoResponse.Video, VideoAdapter.
     }
 
     @Override
-    public Holder onCreateViewHolder(ViewGroup parent, int position) {
+    public Holder onCreateViewHolderExtend(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.listitem_video, parent, false);
         return new Holder(itemView);
+    }
+
+    @Override
+    public Holder getViewHolder(View view) {
+        return new Holder(view);
     }
 
     class Holder extends RecyclerView.ViewHolder {
