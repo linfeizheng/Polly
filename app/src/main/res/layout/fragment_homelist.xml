@@ -12,4 +12,6 @@
         android:clipToPadding="false"
         android:padding="@dimen/dp5"></com.polly.program.widget.LoadRecyclerView>
 
+    <include layout="@layout/view_status"/>
+
 </FrameLayout>

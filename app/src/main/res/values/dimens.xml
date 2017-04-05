@@ -10,9 +10,11 @@
     <dimen name="font_xxxl">36sp</dimen>
     <!-- 间距 -->
     <dimen name="dp0">0dp</dimen>
+    <dimen name="dp_0dot1">0.1dp</dimen>
     <dimen name="dp1">1dp</dimen>
     <dimen name="dp3">3dp</dimen>
     <dimen name="dp5">5dp</dimen>
+    <dimen name="dp8">8dp</dimen>
     <dimen name="dp10">10dp</dimen>
     <dimen name="dp15">15dp</dimen>
     <dimen name="dp18">18dp</dimen>

@@ -1,6 +1,7 @@
 package com.polly.program.api;
 
 import com.orhanobut.logger.Logger;
+import com.polly.program.Constants;
 import com.polly.program.base.IBaseView;
 import com.polly.program.bean.response.BaseResponse;
 
@@ -33,10 +34,13 @@ public abstract class ProgressDialogSubscriber<T> extends Subscriber<BaseRespons
         Logger.e(t, "获取数据失败");
         if (t instanceof SocketTimeoutException) {
             mView.showToast("请求超时，请稍后重试...");
+            setStatus(Constants.PageStatus.ERROR);
         } else if (t instanceof ConnectException) {
             mView.showToast("请检查网络是否连接");
+            setStatus(Constants.PageStatus.NO_NETWORK);
         } else {
             mView.showToast("请检查网络是否连接");
+            setStatus(Constants.PageStatus.NO_NETWORK);
         }
     }
 
@@ -56,6 +60,10 @@ public abstract class ProgressDialogSubscriber<T> extends Subscriber<BaseRespons
             Logger.e(msg);
             mView.showToast(msg);
         }
+    }
+
+    public void setStatus(int status) {
+
     }
 
 }

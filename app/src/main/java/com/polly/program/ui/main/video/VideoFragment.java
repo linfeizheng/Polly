@@ -76,12 +76,16 @@ public class VideoFragment extends BaseFragment<VideoPresenter> implements Video
 
     @Override
     public void showData(final List<VideoResponse.Video> responses) {
-        Observable.from(responses).subscribe(new Action1<VideoResponse.Video>() {
-            @Override
-            public void call(VideoResponse.Video video) {
-                mAdapter.insert(video);
-            }
-        });
-
+        if (responses != null && responses.size() > 0) {
+            setStatus(Constants.PageStatus.NORMAL);
+            Observable.from(responses).subscribe(new Action1<VideoResponse.Video>() {
+                @Override
+                public void call(VideoResponse.Video video) {
+                    mAdapter.insert(video);
+                }
+            });
+        } else {
+            setStatus(Constants.PageStatus.EMPTY);
+        }
     }
 }

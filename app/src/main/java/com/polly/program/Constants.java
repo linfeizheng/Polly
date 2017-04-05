@@ -21,7 +21,6 @@ public class Constants {
 
     public static final int NORMAL_REQUESTCODE = 99;
 
-
     public static String getHomeUrl(String source) {
         String url = "https://juejin.im/tag/" + source;
         Logger.d("Jsoup-->" + url);
@@ -29,4 +28,11 @@ public class Constants {
     }
 
     public static final String GIF_URL = "http://gank.io/api/data/福利/10/";
+
+    public static class PageStatus {
+        public static final int NORMAL = 0;
+        public static final int EMPTY = 1;
+        public static final int ERROR = 2;
+        public static final int NO_NETWORK = 3;
+    }
 }

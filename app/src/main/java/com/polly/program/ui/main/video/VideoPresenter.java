@@ -1,5 +1,6 @@
 package com.polly.program.ui.main.video;
 
+import com.polly.program.Constants;
 import com.polly.program.api.RetrofitManager;
 import com.polly.program.base.BasePresenterImpl;
 import com.polly.program.bean.response.VideoResponse;
@@ -41,6 +42,7 @@ public class VideoPresenter extends BasePresenterImpl<VideoContract.View> implem
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
+                        mView.setStatus(Constants.PageStatus.ERROR);
                         mView.hideProgress();
                     }
 

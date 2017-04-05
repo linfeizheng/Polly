@@ -16,7 +16,6 @@ import com.polly.program.R;
 import com.polly.program.ui.main.MainActivity;
 import com.polly.program.util.ApplicationUtil;
 import com.polly.program.util.OnClickEvent;
-import com.polly.program.widget.StatusBarCompat;
 import com.polly.program.widget.ToastEx;
 
 import butterknife.ButterKnife;
@@ -90,6 +89,37 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
         ToastEx toast = ToastEx.getInstance(getApplicationContext());
         toast.setText(msg);
         toast.show();
+    }
+
+    @Override
+    public void setStatus(int status) {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.llyt_status);
+        if (layout != null) {
+            if (status == Constants.PageStatus.NORMAL) {
+                layout.setVisibility(View.GONE);
+            } else {
+                layout.setVisibility(View.VISIBLE);
+                ImageView imageView = (ImageView) findViewById(R.id.iv_status);
+                TextView textView = (TextView) findViewById(R.id.tv_status);
+                TextView button = (TextView) findViewById(R.id.btn_status);
+                if (status == Constants.PageStatus.EMPTY) {
+                    imageView.setImageResource(R.mipmap.ws_ic_no_data);
+                    textView.setText("暂无数据");
+                } else if (status == Constants.PageStatus.ERROR) {
+                    imageView.setImageResource(R.mipmap.ws_server_error_exception);
+                    textView.setText("加载失败，请稍后重试···");
+                } else if (status == Constants.PageStatus.NO_NETWORK) {
+                    imageView.setImageResource(R.mipmap.ws_no_net_exception);
+                    textView.setText("无网络连接，请检查网络···");
+                }
+                button.setOnClickListener(new OnClickEvent() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        initData();
+                    }
+                });
+            }
+        }
     }
 
     protected void toActivity(Class<?> activity) {

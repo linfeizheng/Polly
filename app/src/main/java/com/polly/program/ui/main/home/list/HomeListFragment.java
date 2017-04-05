@@ -1,14 +1,11 @@
 package com.polly.program.ui.main.home.list;
 
 import android.content.Context;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.polly.program.Constants;
 import com.polly.program.R;
-import com.polly.program.base.AnimationAdapterWrapper;
 import com.polly.program.base.BaseFragment;
 import com.polly.program.bean.response.GankIoResponse;
 import com.polly.program.ui.main.home.HomeContract;
@@ -36,7 +33,7 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
 
     private String tabName;
 
-    private int page = 1;
+    private int page;
 
     @Override
     public void onAttach(Context context) {
@@ -61,6 +58,7 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
 
     @Override
     protected void lazyLoad() {
+        page = 0;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mAdapter = new HomeListAdapter(mContext);
         mAdapter.setPullLoadEnabled(true);
@@ -75,7 +73,6 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
         mRecyclerView.setOnLoadMoreListener(new LoadRecyclerView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                page += 1;
                 mPresenter.getData(tabName, page);
             }
         });
@@ -88,7 +85,13 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
 
     @Override
     public void showData(List<GankIoResponse> responses) {
+        page += 1;
         if (page == 1) {
+            if (responses == null || responses.size() <= 0) {
+                setStatus(Constants.PageStatus.EMPTY);
+            } else {
+                setStatus(Constants.PageStatus.NORMAL);
+            }
             mAdapter.setData(responses);
         } else {
             Observable.from(responses).subscribe(new Action1<GankIoResponse>() {
@@ -102,4 +105,5 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
             mRecyclerView.setLoadComplete(true);
         }
     }
+
 }

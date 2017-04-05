@@ -22,13 +22,19 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
     }
 
     @Override
-    public void getData(String source, int page) {
-        mRxManager.add(RetrofitManager.getGankInstance().getArticle(source, String.valueOf(page))
+    public void getData(String source, final int page) {
+        mRxManager.add(RetrofitManager.getGankInstance().getArticle(source, String.valueOf(page + 1))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ProgressDialogSubscriber<List<GankIoResponse>>(mView) {
                     @Override
                     public void onBizSuccess(List<GankIoResponse> response) {
                         mView.showData(response);
+                    }
+
+                    @Override
+                    public void setStatus(int status) {
+                        if (page == 0)
+                            mView.setStatus(status);
                     }
                 }));
     }

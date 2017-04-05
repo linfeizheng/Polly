@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.polly.program.Constants;
 import com.polly.program.R;
 import com.polly.program.ui.main.MainActivity;
 import com.polly.program.util.AnimationUtil;
+import com.polly.program.util.OnClickEvent;
 import com.polly.program.util.SharedPreferencesUtil;
 import com.polly.program.widget.StatusBarCompat;
 import com.polly.program.widget.ToastEx;
@@ -24,6 +26,7 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements View.OnClickListener, IBaseView {
 
     protected Activity mContext;
+    protected View rootView;
     protected TextView mTvTitle;
 
     protected P mPresenter;
@@ -34,10 +37,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayoutId(), container, false);
+        rootView = inflater.inflate(getLayoutId(), container, false);
         mContext = getActivity();
-        ButterKnife.bind(this, view);
-        mTvTitle = (TextView) view.findViewById(R.id.tv_title);
+        ButterKnife.bind(this, rootView);
+        mTvTitle = (TextView) rootView.findViewById(R.id.tv_title);
         if (mTvTitle != null) {
             StatusBarCompat.compat(mContext);
         } else {
@@ -52,7 +55,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
             lazyLoad();
         }
         initListener();
-        return view;
+        return rootView;
     }
 
     protected abstract int getLayoutId();
@@ -86,6 +89,37 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
             if (needRefresh) {
                 needRefresh = false;
                 lazyLoad();
+            }
+        }
+    }
+
+    @Override
+    public void setStatus(int status) {
+        LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.llyt_status);
+        if (layout != null) {
+            if (status == Constants.PageStatus.NORMAL) {
+                layout.setVisibility(View.GONE);
+            } else {
+                layout.setVisibility(View.VISIBLE);
+                ImageView imageView = (ImageView) rootView.findViewById(R.id.iv_status);
+                TextView textView = (TextView) rootView.findViewById(R.id.tv_status);
+                TextView button = (TextView) rootView.findViewById(R.id.btn_status);
+                if (status == Constants.PageStatus.EMPTY) {
+                    imageView.setImageResource(R.mipmap.ws_ic_no_data);
+                    textView.setText("暂无数据");
+                } else if (status == Constants.PageStatus.ERROR) {
+                    imageView.setImageResource(R.mipmap.ws_server_error_exception);
+                    textView.setText("加载失败，请稍后重试···");
+                } else if (status == Constants.PageStatus.NO_NETWORK) {
+                    imageView.setImageResource(R.mipmap.ws_no_net_exception);
+                    textView.setText("无网络连接，请检查网络···");
+                }
+                button.setOnClickListener(new OnClickEvent() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        lazyLoad();
+                    }
+                });
             }
         }
     }

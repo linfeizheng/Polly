@@ -6,6 +6,8 @@ public interface IBaseView {
 
     void hideProgress();
 
+    void setStatus(int status);
+
     void showToast(String msg);
 
 }
