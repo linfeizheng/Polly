@@ -38,11 +38,6 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
         ButterKnife.bind(this);
         mTitleLayout = (LinearLayout) findViewById(R.id.llyt_header);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
-//        if (mTvTitle != null) {
-//            StatusBarCompat.compat(this);
-//        } else {
-//            StatusBarCompat.compat(this, android.R.color.transparent);
-//        }
         ApplicationUtil.addActivity(this);
         initData();
         initTitleBar();

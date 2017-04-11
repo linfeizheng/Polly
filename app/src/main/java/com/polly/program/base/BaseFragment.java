@@ -43,11 +43,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         mContext = getActivity();
         ButterKnife.bind(this, rootView);
         mTvTitle = (TextView) rootView.findViewById(R.id.tv_title);
-        if (mTvTitle != null) {
-            StatusBarCompat.compat(mContext);
-        } else {
-            StatusBarCompat.compat(mContext, android.R.color.transparent);
-        }
         spUtil = new SharedPreferencesUtil(mContext);
         mIsVisiable = false;
         initTitleBar();

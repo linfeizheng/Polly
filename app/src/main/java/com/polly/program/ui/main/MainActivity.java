@@ -11,6 +11,7 @@ import com.polly.program.base.BaseActivity;
 import com.polly.program.ui.main.meizi.MeiziFragment;
 import com.polly.program.ui.main.home.HomeFragment;
 import com.polly.program.ui.main.video.VideoFragment;
+import com.polly.program.widget.StatusBarCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initTitleBar() {
-
+        StatusBarCompat.compat(mContext);
     }
 
     @Override
