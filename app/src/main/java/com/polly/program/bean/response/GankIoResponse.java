@@ -18,6 +18,7 @@ public class GankIoResponse implements Serializable {
     private String url;
     private boolean used;
     private String who;
+    private String[] images;
 
     public String get_id() {
         return _id;
@@ -43,28 +44,12 @@ public class GankIoResponse implements Serializable {
         this.desc = desc;
     }
 
-    public String getPublishAt() {
-        return publishedAt;
-    }
-
-    public void setPublishAt(String publishAt) {
-        this.publishedAt = publishAt;
-    }
-
     public String getSource() {
         return source;
     }
 
     public void setSource(String source) {
         this.source = source;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getUrl() {
@@ -75,19 +60,19 @@ public class GankIoResponse implements Serializable {
         this.url = url;
     }
 
-    public boolean isUsed() {
-        return used;
-    }
-
-    public void setUsed(boolean used) {
-        this.used = used;
-    }
-
     public String getWho() {
         return who;
     }
 
     public void setWho(String who) {
         this.who = who;
+    }
+
+    public String[] getImages() {
+        return images;
+    }
+
+    public void setImages(String[] images) {
+        this.images = images;
     }
 }

@@ -13,6 +13,7 @@ import com.polly.program.R;
 import com.polly.program.base.BaseAdapter;
 import com.polly.program.bean.response.GankIoResponse;
 import com.polly.program.ui.article.ArticleActivity;
+import com.polly.program.util.ImageUtil;
 import com.polly.program.util.OnClickEvent;
 import com.polly.program.util.StringUtil;
 
@@ -41,6 +42,12 @@ public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter
             holder.mTvDate.setText(publishedAt);
         }
         holder.mTvWho.setText(response.getWho() != null ? response.getWho() : "");
+        if (response.getImages() != null && response.getImages().length > 0) {
+            holder.mIvAvatar.setVisibility(View.VISIBLE);
+            ImageUtil.loadImg(mContext, response.getImages()[0], holder.mIvAvatar);
+        } else {
+            holder.mIvAvatar.setVisibility(View.GONE);
+        }
         holder.itemView.setOnClickListener(new OnClickEvent() {
             @Override
             public void onSingleClick(View v) {

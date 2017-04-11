@@ -35,6 +35,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     private ProgressDialog mProgressDialog;
 
+    protected boolean mIsVisiable = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(getLayoutId(), container, false);
@@ -47,11 +49,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
             StatusBarCompat.compat(mContext, android.R.color.transparent);
         }
         spUtil = new SharedPreferencesUtil(mContext);
-        needRefresh = true;
+        mIsVisiable = false;
         initTitleBar();
         initData();
         if (getUserVisibleHint()) {
-            needRefresh = false;
+            mIsVisiable = true;
             lazyLoad();
         }
         initListener();
@@ -80,14 +82,12 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
             mPresenter.onDetach();
     }
 
-    protected boolean needRefresh = false;
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
-            if (needRefresh) {
-                needRefresh = false;
+            if (!mIsVisiable) {
+                mIsVisiable = true;
                 lazyLoad();
             }
         }
@@ -108,10 +108,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
                     imageView.setImageResource(R.mipmap.ws_ic_no_data);
                     textView.setText("暂无数据");
                 } else if (status == Constants.PageStatus.ERROR) {
-                    imageView.setImageResource(R.mipmap.ws_server_error_exception);
+                    imageView.setImageResource(R.mipmap.ws_ic_no_data);
                     textView.setText("加载失败，请稍后重试···");
                 } else if (status == Constants.PageStatus.NO_NETWORK) {
-                    imageView.setImageResource(R.mipmap.ws_no_net_exception);
+                    imageView.setImageResource(R.mipmap.ws_ic_no_data);
                     textView.setText("无网络连接，请检查网络···");
                 }
                 button.setOnClickListener(new OnClickEvent() {

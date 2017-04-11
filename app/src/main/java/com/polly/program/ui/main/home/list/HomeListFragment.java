@@ -1,6 +1,8 @@
 package com.polly.program.ui.main.home.list;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -36,8 +38,8 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
     private int page;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         tabName = getArguments().getString(Constants.INTENT_EXTRA_ID);
     }
 

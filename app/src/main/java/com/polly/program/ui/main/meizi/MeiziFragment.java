@@ -3,8 +3,7 @@ package com.polly.program.ui.main.meizi;
 import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,6 +12,7 @@ import com.polly.program.R;
 import com.polly.program.base.BaseFragment;
 import com.polly.program.bean.response.GankIoResponse;
 import com.polly.program.ui.picture.PictureActivity;
+import com.polly.program.widget.LoadRecyclerView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -30,13 +30,11 @@ import rx.functions.Action1;
 public class MeiziFragment extends BaseFragment<MeiziPresenter> implements MeiziAdapter.OnItemClickListener, MeiziContract.View {
 
     @Bind(R.id.recyclerview_gif)
-    RecyclerView mRecyclerView;
+    LoadRecyclerView mRecyclerView;
 
-    private StaggeredGridLayoutManager mLayoutManager;
     private MeiziAdapter mAdapter;
 
     private int page = 1;
-    private int lastVisibleItem;
 
     @Override
     protected int getLayoutId() {
@@ -56,8 +54,7 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter> implements Meizi
 
     @Override
     protected void lazyLoad() {
-        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
         mRecyclerView.setAdapter(mAdapter);
         mPresenter.getData(page);
     }
@@ -65,20 +62,10 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter> implements Meizi
     @Override
     protected void initListener() {
         mAdapter.setListener(this);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.setOnLoadMoreListener(new LoadRecyclerView.OnLoadMoreListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 2 >= mLayoutManager.getItemCount()) {
-                    mPresenter.getData(++page);
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int[] positions = mLayoutManager.findLastVisibleItemPositions(null);
-                lastVisibleItem = Math.max(positions[0], positions[1]);
+            public void onLoadMore() {
+                mPresenter.getData(++page);
             }
         });
     }

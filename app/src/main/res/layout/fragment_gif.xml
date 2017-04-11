@@ -6,11 +6,11 @@
 
     <include layout="@layout/view_header"/>
 
-    <android.support.v7.widget.RecyclerView
+    <com.polly.program.widget.LoadRecyclerView
         android:id="@+id/recyclerview_gif"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:padding="@dimen/dp3">
-    </android.support.v7.widget.RecyclerView>
+    </com.polly.program.widget.LoadRecyclerView>
 </LinearLayout>

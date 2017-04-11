@@ -106,10 +106,10 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
                     imageView.setImageResource(R.mipmap.ws_ic_no_data);
                     textView.setText("暂无数据");
                 } else if (status == Constants.PageStatus.ERROR) {
-                    imageView.setImageResource(R.mipmap.ws_server_error_exception);
+                    imageView.setImageResource(R.mipmap.ws_ic_no_data);
                     textView.setText("加载失败，请稍后重试···");
                 } else if (status == Constants.PageStatus.NO_NETWORK) {
-                    imageView.setImageResource(R.mipmap.ws_no_net_exception);
+                    imageView.setImageResource(R.mipmap.ws_ic_no_data);
                     textView.setText("无网络连接，请检查网络···");
                 }
                 button.setOnClickListener(new OnClickEvent() {
