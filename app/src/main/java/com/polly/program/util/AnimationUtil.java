@@ -29,9 +29,9 @@ public class AnimationUtil {
 
     private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
 
-    public static void anim(View view) {
-        ObjectAnimator animator1 = ObjectAnimator.ofFloat(view, ImageView.SCALE_X, 0.1f, 1f);
-        ObjectAnimator animator2 = ObjectAnimator.ofFloat(view, ImageView.SCALE_Y, 0.1f, 1f);
+    public static void scaleAnim(View view, float ratio) {
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(view, ImageView.SCALE_X, ratio, 1f);
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(view, ImageView.SCALE_Y, ratio, 1f);
         animator1.setDuration(500);
         animator2.setDuration(500);
         animator1.setInterpolator(OVERSHOOT_INTERPOLATOR);

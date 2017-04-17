@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MainAdapter extends FragmentPagerAdapter {
 
-    private static final String[] mTitles = new String[]{"首页", "GIF", "视频"};
+    private static final String[] mTitles = new String[]{"首页", "妹子", "视频", "影讯"};
 
     private List<Fragment> fragments;
 

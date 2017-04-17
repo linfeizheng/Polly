@@ -11,6 +11,7 @@ import com.polly.program.R;
 import com.polly.program.base.BaseAdapter;
 import com.polly.program.bean.response.VideoResponse;
 import com.polly.program.util.ImageUtil;
+import com.polly.program.util.OnClickEvent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,25 +28,24 @@ public class VideoAdapter extends BaseAdapter<VideoResponse.Video, VideoAdapter.
     }
 
     @Override
-    public void onBindViewHolderExtend(final Holder holder, int position) {
+    public void onBindViewHolderExtend(final Holder holder, final int position) {
         final VideoResponse.Video video = mData.get(position);
         ImageUtil.loadImg(mContext, video.getCover(), holder.mIvVideo);
         ImageUtil.loadCircleImg(mContext, video.getTopicImg(), holder.mIvLogo);
         holder.mTvTopicName.setText(video.getTopicName() != null ? video.getTopicName() : "");
-        holder.mIvVideo.setOnClickListener(new View.OnClickListener() {
+        holder.mIvVideo.setOnClickListener(new OnClickEvent() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 if (listener != null) {
-                    listener.onClick(video, holder.mIvVideo);
+                    listener.onClick(holder.itemView, position);
                 }
             }
         });
     }
 
     @Override
-    public Holder onCreateViewHolderExtend(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.listitem_video, parent, false);
-        return new Holder(itemView);
+    public int getItemViewLayoutId() {
+        return R.layout.listitem_video;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class VideoAdapter extends BaseAdapter<VideoResponse.Video, VideoAdapter.
         return new Holder(view);
     }
 
-    class Holder extends RecyclerView.ViewHolder {
+    public class Holder extends BaseAdapter.BaseHolder {
 
         @Bind(R.id.iv_video)
         ImageView mIvVideo;
@@ -64,17 +64,13 @@ public class VideoAdapter extends BaseAdapter<VideoResponse.Video, VideoAdapter.
 
         public Holder(View itemView) {
             super(itemView);
+        }
+
+        @Override
+        public void bindViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
         }
+
     }
 
-    public interface OnItemClickListener {
-        void onClick(VideoResponse.Video video, ImageView mImageView);
-    }
-
-    private OnItemClickListener listener;
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
 }

@@ -37,6 +37,11 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".ui.moive.MovieDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

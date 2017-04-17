@@ -3,6 +3,7 @@ package com.polly.program.base;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,8 +40,8 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
         mTitleLayout = (LinearLayout) findViewById(R.id.llyt_header);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         ApplicationUtil.addActivity(this);
-        initData();
         initTitleBar();
+        initData();
         initListener();
     }
 
@@ -52,9 +53,9 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
 
     protected abstract void initListener();
 
-    public void setTitle(CharSequence title) {
+    public void setTitle(@NonNull CharSequence title) {
         if (mTvTitle != null) {
-            mTvTitle.setText(title != null ? title : "");
+            mTvTitle.setText(title);
         }
     }
 

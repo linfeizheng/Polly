@@ -10,6 +10,7 @@ import com.polly.program.R;
 import com.polly.program.base.BaseActivity;
 import com.polly.program.ui.main.meizi.MeiziFragment;
 import com.polly.program.ui.main.home.HomeFragment;
+import com.polly.program.ui.main.movie.MovieFragment;
 import com.polly.program.ui.main.video.VideoFragment;
 import com.polly.program.widget.StatusBarCompat;
 
@@ -28,10 +29,12 @@ public class MainActivity extends BaseActivity {
     private HomeFragment mHomeFragment;
     private MeiziFragment mMeiziFragment;
     private VideoFragment mVideoFragment;
+    private MovieFragment mMovieFragment;
 
     private TabLayout.Tab mTabOne;
     private TabLayout.Tab mTabTwo;
     private TabLayout.Tab mTabThree;
+    private TabLayout.Tab mTabFour;
 
     private MainAdapter mAdapter;
 
@@ -51,21 +54,25 @@ public class MainActivity extends BaseActivity {
         mHomeFragment = new HomeFragment();
         mMeiziFragment = new MeiziFragment();
         mVideoFragment = new VideoFragment();
+        mMovieFragment = new MovieFragment();
         fragments.add(mHomeFragment);
         fragments.add(mMeiziFragment);
         fragments.add(mVideoFragment);
+        fragments.add(mMovieFragment);
         mAdapter = new MainAdapter(getSupportFragmentManager(), fragments);
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(fragments.size());
         mTabLayout.setupWithViewPager(mViewPager);
 
         mTabOne = mTabLayout.getTabAt(0);
         mTabTwo = mTabLayout.getTabAt(1);
         mTabThree = mTabLayout.getTabAt(2);
+        mTabFour = mTabLayout.getTabAt(3);
 
         mTabOne.setIcon(R.drawable.ic_home_checked);
-        mTabTwo.setIcon(R.drawable.ic_gif_unchecked);
+        mTabTwo.setIcon(R.drawable.ic_meizi_unchecked);
         mTabThree.setIcon(R.drawable.ic_video_unchecked);
+        mTabFour.setIcon(R.drawable.ic_video_unchecked);
     }
 
     @Override
@@ -80,16 +87,24 @@ public class MainActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 if (position == 0) {
                     mTabOne.setIcon(R.drawable.ic_home_checked);
-                    mTabTwo.setIcon(R.drawable.ic_gif_unchecked);
+                    mTabTwo.setIcon(R.drawable.ic_meizi_unchecked);
                     mTabThree.setIcon(R.drawable.ic_video_unchecked);
+                    mTabFour.setIcon(R.drawable.ic_video_unchecked);
                 } else if (position == 1) {
                     mTabOne.setIcon(R.drawable.ic_home_unchecked);
-                    mTabTwo.setIcon(R.drawable.ic_gif_checked);
+                    mTabTwo.setIcon(R.drawable.ic_meizi_checked);
                     mTabThree.setIcon(R.drawable.ic_video_unchecked);
+                    mTabFour.setIcon(R.drawable.ic_video_unchecked);
                 } else if (position == 2) {
                     mTabOne.setIcon(R.drawable.ic_home_unchecked);
-                    mTabTwo.setIcon(R.drawable.ic_gif_unchecked);
+                    mTabTwo.setIcon(R.drawable.ic_meizi_unchecked);
                     mTabThree.setIcon(R.drawable.ic_video_checked);
+                    mTabFour.setIcon(R.drawable.ic_video_unchecked);
+                } else if (position == 3) {
+                    mTabOne.setIcon(R.drawable.ic_home_unchecked);
+                    mTabTwo.setIcon(R.drawable.ic_meizi_unchecked);
+                    mTabThree.setIcon(R.drawable.ic_video_unchecked);
+                    mTabFour.setIcon(R.drawable.ic_video_checked);
                 }
             }
 

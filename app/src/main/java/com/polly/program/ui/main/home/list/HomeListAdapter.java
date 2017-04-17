@@ -67,9 +67,8 @@ public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter
     }
 
     @Override
-    public ViewHolder onCreateViewHolderExtend(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.listitem_home, parent, false);
-        return new ViewHolder(itemView);
+    public int getItemViewLayoutId() {
+        return R.layout.listitem_home;
     }
 
     @Override
@@ -77,7 +76,7 @@ public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter
         return new ViewHolder(view);
     }
 
-    class ViewHolder extends BaseAdapter.Holder {
+    class ViewHolder extends BaseAdapter.BaseHolder {
 
         @Bind(R.id.iv_home_avatar)
         ImageView mIvAvatar;

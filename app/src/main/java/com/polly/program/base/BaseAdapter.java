@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.polly.program.widget.FooterView;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
     public BaseAdapter(Context mContext) {
         this.mContext = mContext;
         this.mInflater = LayoutInflater.from(mContext);
-        if (mData == null){
+        if (mData == null) {
             mData = new ArrayList<>();
         }
     }
@@ -78,6 +77,10 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         return position;
     }
 
+    public T getItem(int position) {
+        return mData.get(position);
+    }
+
     @Override
     public int getItemCount() {
         int count = 0;
@@ -113,11 +116,12 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         } else if (viewType == TYPE_FOOTER) {
             return getViewHolder(footerView);
         } else {
-            return onCreateViewHolderExtend(parent, viewType);
+            View itemView = mInflater.inflate(getItemViewLayoutId(), parent, false);
+            return getViewHolder(itemView);
         }
     }
 
-    public abstract VH onCreateViewHolderExtend(ViewGroup parent, int viewType);
+    public abstract int getItemViewLayoutId();
 
     @Override
     public final int getItemViewType(int position) {
@@ -149,9 +153,9 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
 
     public abstract VH getViewHolder(View view);
 
-    public abstract class Holder extends RecyclerView.ViewHolder {
+    public abstract class BaseHolder extends RecyclerView.ViewHolder {
 
-        public Holder(View itemView) {
+        public BaseHolder(View itemView) {
             super(itemView);
             if (itemView != headerView && itemView != footerView) {
                 bindViewHolder(itemView);
@@ -159,6 +163,16 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         }
 
         public abstract void bindViewHolder(View itemView);
+    }
+
+    public interface OnItemClickListener {
+        void onClick(View view, int postion);
+    }
+
+    protected OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
 }

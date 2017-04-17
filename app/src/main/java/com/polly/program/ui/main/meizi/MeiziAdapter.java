@@ -41,9 +41,8 @@ public class MeiziAdapter extends BaseAdapter<GankIoResponse, MeiziAdapter.Holde
     }
 
     @Override
-    public Holder onCreateViewHolderExtend(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.listitem_gif, parent, false);
-        return new Holder(itemView);
+    public int getItemViewLayoutId() {
+        return R.layout.listitem_gif;
     }
 
     @Override

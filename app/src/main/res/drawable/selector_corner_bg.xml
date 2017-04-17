@@ -2,6 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="false">
         <shape android:shape="rectangle">
+            <corners android:radius="@dimen/dp5"/>
             <solid android:color="@android:color/white"/>
         </shape>
     </item>
@@ -9,11 +10,13 @@
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/dp5"/>
                     <solid android:color="@android:color/white"/>
                 </shape>
             </item>
             <item>
                 <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/dp5"/>
                     <solid android:color="@color/a_black"/>
                 </shape>
             </item>

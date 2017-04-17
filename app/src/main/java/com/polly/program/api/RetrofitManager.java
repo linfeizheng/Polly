@@ -29,79 +29,76 @@ public class RetrofitManager {
 
     public static final String BASE_URL = BuildConfig.URL_HEADER;
 
-    private static RetrofitService mService1;
-    private static RetrofitService mService2;
+    public static final String URL_163 = "http://c.m.163.com/";
 
-    public static final String FROM = "android";
-    public static final String IMEI = "866656025658982";
+    public static final String URL_DOUBAN = "http://api.douban.com/";
+
+    private static RetrofitService mGankService;
+    private static RetrofitService mNetEaseService;
+    private static RetrofitService mDoubanService;
+
     public static String TOKEN;
 
     public static RetrofitService getGankInstance() {
-        if (mService1 == null) {
+        if (mGankService == null) {
             synchronized (RetrofitManager.class) {
-                if (mService1 == null) {
-                    OkHttpClient.Builder builder = new OkHttpClient.Builder();
-                    if (BuildConfig.DEBUG) {
-                        // http请求Log信息拦截器
-                        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-                        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                        builder.addInterceptor(loggingInterceptor);// 日志记录
-                    }
-                    builder.connectTimeout(20, TimeUnit.SECONDS)
-                            .readTimeout(20, TimeUnit.SECONDS)
-                            .writeTimeout(20, TimeUnit.SECONDS);
-                    OkHttpClient okHttpClient = builder.build();
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                            .client(okHttpClient)
-                            .baseUrl(BASE_URL)
-                            .build();
-                    mService1 = retrofit.create(RetrofitService.class);
+                if (mGankService == null) {
+                    mGankService = getRetrofit(BASE_URL).create(RetrofitService.class);
                 }
             }
-
         }
-        return mService1;
+        return mGankService;
     }
 
-    public static final String URL_163 = "http://c.m.163.com/";
-
     public static RetrofitService get163Instance() {
-        if (mService2 == null) {
+        if (mNetEaseService == null) {
             synchronized (RetrofitManager.class) {
-                if (mService2 == null) {
-                    OkHttpClient.Builder builder = new OkHttpClient.Builder();
-                    if (BuildConfig.DEBUG) {
-                        // http请求Log信息拦截器
-                        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-                        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                        builder.addInterceptor(loggingInterceptor);// 日志记录
-                    }
-                    builder.addInterceptor(headerInterceptor);
-                    builder.connectTimeout(20, TimeUnit.SECONDS)
-                            .readTimeout(20, TimeUnit.SECONDS)
-                            .writeTimeout(20, TimeUnit.SECONDS);
-                    OkHttpClient okHttpClient = builder.build();
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                            .client(okHttpClient)
-                            .baseUrl(URL_163)
-                            .build();
-                    mService2 = retrofit.create(RetrofitService.class);
+                if (mNetEaseService == null) {
+                    mNetEaseService = getRetrofit(URL_163).create(RetrofitService.class);
                 }
             }
-
         }
-        return mService2;
+        return mNetEaseService;
+    }
+
+    public static RetrofitService getDoubanInstance() {
+        if (mDoubanService == null) {
+            synchronized (RetrofitManager.class) {
+                if (mDoubanService == null) {
+                    mDoubanService = getRetrofit(URL_DOUBAN).create(RetrofitService.class);
+                }
+            }
+        }
+        return mDoubanService;
+    }
+
+    private static Retrofit getRetrofit(String url) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        if (BuildConfig.DEBUG) {
+            // http请求Log信息拦截器
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(loggingInterceptor);// 日志记录
+        }
+        builder.addInterceptor(headerInterceptor);
+        builder.connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS);
+        OkHttpClient okHttpClient = builder.build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(okHttpClient)
+                .baseUrl(url)
+                .build();
+        return retrofit;
     }
 
     private static Interceptor headerInterceptor = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request.Builder builder = chain.request().newBuilder();
-            builder.addHeader("Content-Type", "application/json");
+            builder.addHeader("Content-Type", "json");
             if (TOKEN != null)
                 builder.addHeader("token", TOKEN);
             Request request = builder.build();
