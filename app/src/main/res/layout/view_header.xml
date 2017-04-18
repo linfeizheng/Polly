@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/llyt_header"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llyt_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    app:contentInsetEnd="@dimen/dp0"
+    app:contentInsetStart="@dimen/dp0"
     app:layout_scrollFlags="scroll|enterAlways">
 
     <RelativeLayout
@@ -28,7 +29,7 @@
             android:gravity="center"
             android:paddingLeft="@dimen/dp10"
             android:paddingRight="@dimen/dp10"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -44,7 +45,7 @@
             android:singleLine="true"
             android:textColor="@android:color/white"
             android:textSize="@dimen/font_xl"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/iv_title_share"
@@ -54,7 +55,7 @@
             android:paddingLeft="@dimen/dp5"
             android:paddingRight="@dimen/dp10"
             android:src="@drawable/ic_share"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_title_save"
@@ -64,7 +65,7 @@
             android:paddingLeft="@dimen/dp5"
             android:paddingRight="@dimen/dp5"
             android:src="@drawable/ic_save"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
@@ -72,4 +73,4 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray1"/>-->
-</LinearLayout>
+</android.support.v7.widget.Toolbar>

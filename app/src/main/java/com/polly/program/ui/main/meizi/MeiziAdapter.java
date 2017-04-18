@@ -47,16 +47,20 @@ public class MeiziAdapter extends BaseAdapter<GankIoResponse, MeiziAdapter.Holde
 
     @Override
     public Holder getViewHolder(View view) {
-        return null;
+        return new Holder(view);
     }
 
-    class Holder extends RecyclerView.ViewHolder {
+    class Holder extends BaseAdapter.BaseHolder{
 
         @Bind(R.id.iv_gif)
         ImageView mIvGif;
 
         public Holder(View itemView) {
             super(itemView);
+        }
+
+        @Override
+        public void bindViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
         }
     }

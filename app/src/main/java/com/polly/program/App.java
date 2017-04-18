@@ -20,7 +20,8 @@ public class App extends Application {
         super.onCreate();
         instance = this;
         Logger.init(BuildConfig.APPLICATION_ID).logLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE);
-        Bugly.init(getApplicationContext(), "b68313baa9", false);
+        if (!BuildConfig.DEBUG)
+            Bugly.init(getApplicationContext(), "b68313baa9", false);
         LeakCanary.install(this);
         initTbs();
     }

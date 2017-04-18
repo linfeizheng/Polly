@@ -4,9 +4,6 @@ import com.polly.program.Constants;
 import com.polly.program.api.RetrofitManager;
 import com.polly.program.base.BasePresenterImpl;
 import com.polly.program.bean.response.MovieDetailResponse;
-import com.polly.program.bean.response.PersonResponse;
-
-import java.util.List;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;

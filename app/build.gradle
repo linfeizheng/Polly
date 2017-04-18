@@ -58,4 +58,5 @@ dependencies {
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     compile 'fm.jiecao:jiecaovideoplayer:5.5.2'
     compile 'jp.wasabeef:recyclerview-animators:2.2.6'
+    compile 'jp.wasabeef:glide-transformations:2.0.2'
 }

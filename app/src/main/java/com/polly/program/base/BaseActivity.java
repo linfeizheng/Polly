@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompatActivity implements View.OnClickListener, IBaseView {
 
     protected AppCompatActivity mContext;
-    protected LinearLayout mTitleLayout;
+    protected Toolbar mTitleLayout;
     protected TextView mTvTitle;
 
     protected P mPresenter;
@@ -37,7 +38,7 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
         mContext = this;
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-        mTitleLayout = (LinearLayout) findViewById(R.id.llyt_header);
+        mTitleLayout = (Toolbar) findViewById(R.id.llyt_header);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         ApplicationUtil.addActivity(this);
         initTitleBar();

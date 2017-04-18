@@ -12,5 +12,8 @@
     <color name="gray1">#999999</color>
 
     <color name="font_gray1">#424242</color>
+    <color name="font_gray2">#696969</color>
+
+    <color name="font_yellow">#FF9700</color>
 
 </resources>

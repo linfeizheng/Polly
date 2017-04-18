@@ -1,6 +1,8 @@
 package com.polly.program.ui.main.movie;
 
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,7 +65,13 @@ public class MovieFragment extends BaseFragment<MoviePresenter> implements Movie
             public void onClick(View view, int postion) {
                 SubjectsResponse subject = mAdapter.getItem(postion);
                 Intent intent = MovieDetailActivity.getIntent(mContext, subject);
-                startActivity(intent);
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext, view, MovieDetailActivity.TRANSIT_PIC);
+                try {
+                    ActivityCompat.startActivity(mContext, intent, optionsCompat.toBundle());
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                    startActivity(intent);
+                }
             }
         });
     }

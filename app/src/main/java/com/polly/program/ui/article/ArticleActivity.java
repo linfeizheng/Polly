@@ -12,6 +12,7 @@ import com.polly.program.Constants;
 import com.polly.program.R;
 import com.polly.program.base.BaseActivity;
 import com.polly.program.util.OnClickEvent;
+import com.polly.program.util.Utils;
 import com.polly.program.widget.CustomWebView;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -35,6 +36,10 @@ public class ArticleActivity extends BaseActivity {
 
     @Override
     protected void initTitleBar() {
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        url = getIntent().getStringExtra(Constants.INTENT_EXTRA_ID);
+        title = getIntent().getStringExtra(Constants.INTENT_EXTRA_TITLE);
         if (title != null) {
             setTitle(title);
         }
@@ -46,17 +51,13 @@ public class ArticleActivity extends BaseActivity {
         mIvShare.setOnClickListener(new OnClickEvent() {
             @Override
             public void onSingleClick(View v) {
-                share(title + " " + url);
+                Utils.share(mContext, title + " " + url);
             }
         });
     }
 
     @Override
     protected void initData() {
-        getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        url = getIntent().getStringExtra(Constants.INTENT_EXTRA_ID);
-        title = getIntent().getStringExtra(Constants.INTENT_EXTRA_TITLE);
         if (url != null)
             mWebView.loadUrl(url);
         mWebView.setWebViewClient(new WebViewClient() {
@@ -96,15 +97,6 @@ public class ArticleActivity extends BaseActivity {
             }
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    public void share(String text) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
-        intent.putExtra(Intent.EXTRA_TEXT, text);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(Intent.createChooser(intent, "分享"));
     }
 
 }

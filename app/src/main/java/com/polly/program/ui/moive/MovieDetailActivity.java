@@ -2,10 +2,13 @@ package com.polly.program.ui.moive;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.widget.DividerItemDecoration;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -15,12 +18,10 @@ import com.polly.program.Constants;
 import com.polly.program.R;
 import com.polly.program.base.BaseActivity;
 import com.polly.program.bean.response.MovieDetailResponse;
-import com.polly.program.bean.response.PersonResponse;
 import com.polly.program.bean.response.SubjectsResponse;
-import com.polly.program.ui.main.movie.MoviePresenter;
 import com.polly.program.util.ImageUtil;
-
-import java.util.List;
+import com.polly.program.util.StringUtil;
+import com.polly.program.util.Utils;
 
 import butterknife.Bind;
 
@@ -30,32 +31,54 @@ import butterknife.Bind;
 
 public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> implements MovieDetailContract.View {
 
+    @Bind(R.id.appbar_movie)
+    AppBarLayout mAppBarLayout;
+    @Bind(R.id.toolbar_movie)
+    Toolbar mToolbar;
+    @Bind(R.id.tv_title_back)
+    TextView mTvBack;
+    @Bind(R.id.iv_title_share)
+    ImageView mIvShare;
+    @Bind(R.id.tv_title)
+    TextView mTvTitle;
     @Bind(R.id.iv_movie_bg)
     ImageView mIvBackground;
     @Bind(R.id.iv_movie_photo)
     ImageView mIvPhoto;
-    @Bind(R.id.tv_movie_rate)
-    TextView mTvRate;
-    @Bind(R.id.tv_movie_number)
-    TextView mTvNumber;
-    @Bind(R.id.tv_movie_directors)
-    TextView mTvDirector;
-    @Bind(R.id.tv_movie_casts)
-    TextView mTvCasts;
+    @Bind(R.id.tv_movie_name)
+    TextView mTvName;
+    @Bind(R.id.tv_movie_original_name)
+    TextView mTvOriginalName;
     @Bind(R.id.tv_movie_genres)
     TextView mTvGenres;
+    @Bind(R.id.tv_movie_country)
+    TextView mTvCountry;
     @Bind(R.id.tv_movie_day)
     TextView mTvDay;
-    @Bind(R.id.tv_movie_city)
-    TextView mTvCity;
+    @Bind(R.id.tv_movie_rate_title)
+    TextView mTvRateTitle;
+    @Bind(R.id.tv_movie_number)
+    TextView mTvNumber;
+    @Bind(R.id.tv_movie_rate)
+    TextView mTvRate;
     @Bind(R.id.tv_movie_summary)
     TextView mTvSummary;
-    @Bind(R.id.recyclerview_movie)
-    RecyclerView mRecyclerView;
+    @Bind(R.id.recyclerview_movie_director)
+    RecyclerView mRvDirector;
+    @Bind(R.id.recyclerview_movie_cast)
+    RecyclerView mRvCast;
 
-    private MovieDetailAdapter mAdapter;
+    private MovieDetailAdapter mDirectorAdapter;
+    private MovieDetailAdapter mCastAdapter;
 
     private SubjectsResponse subject;
+    private MovieDetailResponse movieDetail;
+
+    public static final String TRANSIT_PIC = "picture";
+
+    private int RED;
+    private int GREEN;
+    private int BLUE;
 
     @Override
     protected int getLayoutId() {
@@ -71,51 +94,75 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-        setTitle(subject.getTitle());
+        int backgroundColor = getResources().getColor(R.color.colorPrimary);
+        RED = Color.red(backgroundColor);
+        GREEN = Color.green(backgroundColor);
+        BLUE = Color.blue(backgroundColor);
+        mToolbar.setBackgroundColor(Color.argb(0, RED, GREEN, BLUE));
+        mTvTitle.setText(subject.getTitle());
     }
 
     @Override
     protected void initData() {
+        ImageUtil.loadImg(mContext, subject.getImages().getMedium(), mIvPhoto);
+        ImageUtil.loadBlurImg(mContext, subject.getImages().getLarge(), mIvBackground);
+        ViewCompat.setTransitionName(mIvPhoto, TRANSIT_PIC);
         mPresenter = new MovieDetailPresenter(this);
-        LinearLayoutManager manager = new LinearLayoutManager(mContext);
-        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mRecyclerView.setLayoutManager(manager);
-        mAdapter = new MovieDetailAdapter(mContext);
-        mRecyclerView.setAdapter(mAdapter);
+        LinearLayoutManager directorManager = new LinearLayoutManager(mContext);
+        directorManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        LinearLayoutManager castManager = new LinearLayoutManager(mContext);
+        castManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mRvDirector.setLayoutManager(directorManager);
+        mRvCast.setLayoutManager(castManager);
+        mDirectorAdapter = new MovieDetailAdapter(mContext);
+        mCastAdapter = new MovieDetailAdapter(mContext);
+        mRvDirector.setAdapter(mDirectorAdapter);
+        mRvCast.setAdapter(mCastAdapter);
         mPresenter.getMovieDetail(subject.getId());
     }
 
     @Override
     protected void initListener() {
-
+        mTvBack.setOnClickListener(this);
+        mIvShare.setOnClickListener(this);
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                int scrollRange = appBarLayout.getTotalScrollRange();
+                int offSetAbs = Math.abs(verticalOffset);
+                float percentage = (float) (offSetAbs) / (float) (scrollRange);
+                if (percentage > 0.9f && mTvTitle.getVisibility() == View.GONE) {
+                    mTvTitle.setVisibility(View.VISIBLE);
+                } else if (percentage < 0.9f && mTvTitle.getVisibility() == View.VISIBLE) {
+                    mTvTitle.setVisibility(View.GONE);
+                }
+                mToolbar.setBackgroundColor(Color.argb((int) (percentage * 255), RED, GREEN, BLUE));
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.tv_title_back:
+                onBackPressed();
+                break;
+            case R.id.iv_title_share:
+                if (movieDetail != null && !StringUtil.isTrimBlank(movieDetail.getAlt())) {
+                    Utils.share(mContext, movieDetail.getAlt());
+                } else {
+                    toast("分享失败");
+                }
+                break;
+        }
     }
 
     @Override
     public void showData(MovieDetailResponse response) {
-        ImageUtil.loadImg(mContext, response.getImages().getMedium(), mIvBackground);
-        ImageUtil.loadImg(mContext, response.getImages().getMedium(), mIvPhoto);
-        mTvRate.setText((response.getRating() != null && response.getRating().getAverage() != null) ? "评分："+response.getRating().getAverage().toString() : "");
-        StringBuffer directors = new StringBuffer();
-        if (response.getDirectors() != null) {
-            for (PersonResponse person : response.getDirectors()) {
-                directors.append(person.getName());
-                directors.append(" / ");
-            }
-            mTvDirector.setText(directors.toString().substring(0, directors.length() - 3));
-        }
-        StringBuffer casts = new StringBuffer();
-        if (response.getCasts() != null) {
-            for (PersonResponse person : response.getCasts()) {
-                casts.append(person.getName());
-                casts.append(" / ");
-            }
-            mTvCasts.setText(casts.toString().substring(0, casts.length() - 3));
-        }
+        setStatus(Constants.PageStatus.NORMAL);
+        movieDetail = response;
+        mTvName.setText(response.getTitle() != null ? response.getTitle() : "");
+        mTvOriginalName.setText(response.getOriginal_title() != null ? response.getOriginal_title() : "");
         StringBuffer types = new StringBuffer();
         if (response.getGenres() != null) {
             for (String genry : response.getGenres()) {
@@ -124,7 +171,21 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
             }
             mTvGenres.setText(types.toString().substring(0, types.length() - 3));
         }
-        mAdapter.setData(response.getDirectors());
+        StringBuffer countries = new StringBuffer();
+        if (response.getCountries() != null) {
+            for (String country : response.getCountries()) {
+                countries.append(country);
+                countries.append(" / ");
+            }
+            mTvCountry.setText(countries.toString().substring(0, countries.length() - 3));
+        }
+        mTvDay.setText(response.getYear() != null ? response.getYear() + "年上映" : "");
+        mTvRateTitle.setText("用户评分");
+        mTvNumber.setText(response.getRatings_count() != null ? "(" + response.getRatings_count() + ")" : "");
+        mTvRate.setText((response.getRating() != null && response.getRating().getAverage() != null) ? response.getRating().getAverage().toString() : "");
+        mTvSummary.setText(response.getSummary() != null ? "\u3000\u3000" + response.getSummary() : "");
+        mDirectorAdapter.setData(response.getDirectors());
+        mCastAdapter.setData(response.getCasts().addAll(response.getCasts()) ? response.getCasts() : response.getCasts());
     }
 
     public static Intent getIntent(Activity activity, SubjectsResponse subject) {

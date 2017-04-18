@@ -61,7 +61,7 @@ public class MovieDetailResponse {
     private String summary;
     private String subtype;
     private int comments_count;
-    private int ratings_count;
+    private Integer ratings_count;
     private List<String> countries;
     private List<String> genres;
     private List<PersonResponse> casts;
@@ -236,11 +236,11 @@ public class MovieDetailResponse {
         this.comments_count = comments_count;
     }
 
-    public int getRatings_count() {
+    public Integer getRatings_count() {
         return ratings_count;
     }
 
-    public void setRatings_count(int ratings_count) {
+    public void setRatings_count(Integer ratings_count) {
         this.ratings_count = ratings_count;
     }
 

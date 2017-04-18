@@ -61,7 +61,7 @@ public class MovieAdapter extends BaseAdapter<SubjectsResponse, MovieAdapter.Hol
             @Override
             public void onSingleClick(View v) {
                 if (listener != null) {
-                    listener.onClick(holder.itemView, position);
+                    listener.onClick(holder.mIvPicture, position);
                 }
             }
         });
