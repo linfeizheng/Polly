@@ -191,15 +191,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:orientation="vertical"
-            android:padding="@dimen/dp5">
+            android:orientation="vertical">
 
             <include layout="@layout/view_status" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp5"
+                android:padding="@dimen/dp10"
                 android:text="剧情简介"
                 android:textColor="@color/font_gray1"
                 android:textSize="@dimen/font_l" />
@@ -209,14 +208,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="@dimen/dp5"
-                android:padding="@dimen/dp5"
+                android:padding="@dimen/dp10"
                 android:textColor="@color/font_gray2"
                 android:textSize="@dimen/font_m" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp5"
+                android:padding="@dimen/dp10"
                 android:text="导演"
                 android:textColor="@color/font_gray1"
                 android:textSize="@dimen/font_l" />
@@ -225,14 +224,14 @@
                 android:id="@+id/recyclerview_movie_director"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
+                android:clipToPadding="true"
                 android:nestedScrollingEnabled="false"
-                android:padding="@dimen/dp1" />
+                android:padding="@dimen/dp10" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp5"
+                android:padding="@dimen/dp10"
                 android:text="主演"
                 android:textColor="@color/font_gray1"
                 android:textSize="@dimen/font_l" />
@@ -243,10 +242,9 @@
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
-                android:padding="@dimen/dp1" />
+                android:padding="@dimen/dp10" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
 
 </android.support.design.widget.CoordinatorLayout>

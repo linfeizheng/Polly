@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp5"
-                android:background="@drawable/selector_corner_bg"
-                android:elevation="@dimen/dp1"
-                android:orientation="vertical"
-                android:padding="@dimen/dp10">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp10"
+    android:layout_marginRight="@dimen/dp10"
+    android:layout_marginTop="@dimen/dp10"
+    android:background="@drawable/selector_corner_bg"
+    android:elevation="@dimen/dp1"
+    android:orientation="vertical"
+    android:padding="@dimen/dp10">
 
     <ImageView
         android:id="@+id/iv_home_avatar"
@@ -15,7 +17,7 @@
         android:layout_height="@dimen/dp45"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:id="@+id/tv_home_title"
@@ -27,7 +29,7 @@
         android:maxLines="2"
         android:textColor="@color/font_gray1"
         android:textSize="@dimen/font_m"
-        tools:text="标题"/>
+        tools:text="标题" />
 
     <TextView
         android:id="@+id/tv_home_who"
@@ -38,7 +40,7 @@
         android:layout_marginTop="@dimen/dp5"
         android:textColor="@color/gray1"
         android:textSize="@dimen/font_s"
-        tools:text="作者"/>
+        tools:text="作者" />
 
     <TextView
         android:id="@+id/tv_home_date"
@@ -49,6 +51,6 @@
         android:layout_toRightOf="@id/tv_home_date"
         android:textColor="@color/gray1"
         android:textSize="@dimen/font_s"
-        tools:text="日期"/>
+        tools:text="日期" />
 
 </RelativeLayout>

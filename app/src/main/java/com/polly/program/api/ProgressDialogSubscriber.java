@@ -62,8 +62,6 @@ public abstract class ProgressDialogSubscriber<T> extends Subscriber<BaseRespons
         }
     }
 
-    public void setStatus(int status) {
-
-    }
+    public abstract void setStatus(int status);
 
 }

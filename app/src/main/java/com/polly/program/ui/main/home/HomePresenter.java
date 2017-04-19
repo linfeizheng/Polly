@@ -1,5 +1,8 @@
 package com.polly.program.ui.main.home;
 
+import android.support.v4.app.Fragment;
+
+import com.polly.program.R;
 import com.polly.program.api.ProgressDialogSubscriber;
 import com.polly.program.api.RetrofitManager;
 import com.polly.program.base.BasePresenterImpl;
@@ -19,6 +22,14 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
 
     public HomePresenter(HomeContract.View mView) {
         super(mView);
+    }
+
+    @Override
+    public void getBannerImage() {
+        String[] images = ((Fragment) mView).getResources().getStringArray(R.array.banner);
+        if (images.length > 0) {
+            mView.showBanner(images);
+        }
     }
 
     @Override

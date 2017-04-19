@@ -11,6 +11,7 @@ import com.polly.program.base.BaseFragment;
 import com.polly.program.bean.response.GankIoResponse;
 import com.polly.program.ui.main.home.HomeContract;
 import com.polly.program.ui.main.home.HomePresenter;
+import com.polly.program.widget.Banner;
 import com.polly.program.widget.LoadRecyclerView;
 
 import java.util.List;
@@ -31,6 +32,9 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
     LoadRecyclerView mRecyclerView;
 
     private HomeListAdapter mAdapter;
+    private BannerAdapter mBannerAdapter;
+
+    private Banner banner;
 
     private String tabName;
 
@@ -66,7 +70,11 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
         ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(mAdapter);
         scaleInAnimationAdapter.setFirstOnly(false);
         mRecyclerView.setAdapter(scaleInAnimationAdapter);
-        mPresenter.getData(tabName, page);
+        if ("Android".equals(tabName)) {
+            mPresenter.getBannerImage();
+        } else {
+            mPresenter.getData(tabName, page);
+        }
     }
 
     @Override
@@ -85,6 +93,15 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
     }
 
     @Override
+    public void showBanner(String[] images) {
+        banner = new Banner(mContext);
+        mBannerAdapter = new BannerAdapter(mContext, images);
+        banner.setLoop(true);
+        banner.setAdapter(mBannerAdapter);
+        mPresenter.getData(tabName, page);
+    }
+
+    @Override
     public void showData(List<GankIoResponse> responses) {
         page += 1;
         if (page == 1) {
@@ -92,6 +109,9 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
                 setStatus(Constants.PageStatus.EMPTY);
             } else {
                 setStatus(Constants.PageStatus.NORMAL);
+            }
+            if (banner != null) {
+                mAdapter.setHeaderView(banner);
             }
             mAdapter.setData(responses);
         } else {

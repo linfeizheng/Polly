@@ -30,6 +30,11 @@ public class MeiziPresenter extends BasePresenterImpl<MeiziContract.View> implem
                     public void onBizSuccess(List<GankIoResponse> response) {
                         mView.showData(response);
                     }
+
+                    @Override
+                    public void setStatus(int status) {
+                        mView.setStatus(status);
+                    }
                 }));
     }
 }

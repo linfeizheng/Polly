@@ -56,7 +56,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         }
     }
 
-    protected void setHeaderView(View headerView) {
+    public void setHeaderView(View headerView) {
         this.headerView = headerView;
     }
 

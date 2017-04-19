@@ -14,12 +14,18 @@ import java.util.List;
 public interface HomeContract {
 
     interface View extends IBaseView {
-        public void showData(List<GankIoResponse> responses);
+
+        void showBanner(String[] images);
+
+        void showData(List<GankIoResponse> responses);
+
     }
 
     interface Presenter extends BasePresenter {
 
-        public void getData(String source, int page);
+        void getBannerImage();
+
+        void getData(String source, int page);
 
     }
 

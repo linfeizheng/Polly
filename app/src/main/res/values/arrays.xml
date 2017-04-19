@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="banner">
+        <item>http://business.cdn.qianqian.com/qianqian/pic/bos_client_14924032592cd4cba57c9880c14ebfa5be2f3e70eb.jpg</item>
+        <item>http://business.cdn.qianqian.com/qianqian/pic/bos_client_1492484113d60e1c73f3cd5ceee0032aad189ceaef.jpg</item>
+        <item>http://business.cdn.qianqian.com/qianqian/pic/bos_client_1492481892ebb91ec812cccb2c5345345cf3faeac8.jpg</item>
+        <item>http://business.cdn.qianqian.com/qianqian/pic/bos_client_1492497700bc16bf8a40239aeca8d11592869db6b0.jpg</item>
+    </string-array>
+</resources>
