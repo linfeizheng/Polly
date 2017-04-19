@@ -127,4 +127,11 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (banner != null && banner.isLoop()) {
+            banner.stop();
+        }
+    }
 }

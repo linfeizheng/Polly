@@ -27,11 +27,13 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private int size;
     private int time = 5000;
     private boolean isLoop;
+    private int what = 0;
 
     @Bind(R.id.viewpager_looper)
     ViewPager mViewPager;
     @Bind(R.id.llyt_looper_dot)
     LinearLayout mDotLayout;
+
     private Handler mHandler;
 
     public Banner(Context context) {
@@ -71,10 +73,10 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             mHandler = new Handler() {
                 public void handleMessage(android.os.Message msg) {
                     mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-                    mHandler.sendEmptyMessageDelayed(0, time);
+                    mHandler.sendEmptyMessageDelayed(what, time);
                 }
             };
-            mHandler.sendEmptyMessageDelayed(0, time);
+            mHandler.sendEmptyMessageDelayed(what, time);
         }
     }
 
@@ -120,6 +122,10 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
     public void setLoop(boolean isLoop) {
         this.isLoop = isLoop;
+    }
+
+    public void stop(){
+        mHandler.removeMessages(what);
     }
 
 }
