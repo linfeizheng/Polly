@@ -1,18 +1,13 @@
 package com.polly.program.ui.main.home.list;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.polly.program.Constants;
 import com.polly.program.R;
 import com.polly.program.base.BaseAdapter;
 import com.polly.program.bean.response.GankIoResponse;
-import com.polly.program.ui.article.ArticleActivity;
 import com.polly.program.util.ImageUtil;
 import com.polly.program.util.OnClickEvent;
 import com.polly.program.util.StringUtil;
@@ -32,7 +27,7 @@ public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter
     }
 
     @Override
-    public void onBindViewHolderExtend(ViewHolder holder, final int position) {
+    public void onBindViewHolderExtend(final ViewHolder holder, final int position) {
         final GankIoResponse response = mData.get(position);
         holder.mTvTitle.setText(response.getDesc() != null ? response.getDesc() : "");
         String publishedAt = response.getCreatedAt();
@@ -51,17 +46,16 @@ public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter
         holder.itemView.setOnClickListener(new OnClickEvent() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(mContext, ArticleActivity.class);
-                intent.putExtra(Constants.INTENT_EXTRA_ID, response.getUrl());
-                intent.putExtra(Constants.INTENT_EXTRA_TITLE, response.getDesc());
-                mContext.startActivity(intent);
+                if (onItemClickListener != null)
+                    onItemClickListener.onClick(holder.itemView, position);
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                remove(position);
-                return true;
+                if (onItemLongClickListener != null)
+                    return onItemLongClickListener.onLongClick(holder.itemView, position);
+                return false;
             }
         });
     }

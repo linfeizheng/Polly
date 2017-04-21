@@ -14,6 +14,7 @@
     <color name="font_gray1">#424242</color>
     <color name="font_gray2">#696969</color>
 
+    <color name="font_red">#DB475D</color>
     <color name="font_yellow">#FF9700</color>
 
 </resources>

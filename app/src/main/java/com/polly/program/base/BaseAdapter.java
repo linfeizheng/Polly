@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.polly.program.widget.FooterView;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         notifyItemInserted(getStart() + mData.size());
     }
 
-    protected void remove(int position) {
+    public void remove(int position) {
         if (position >= 0 && position < getItemCount()) {
             mData.remove(position);
             notifyItemRemoved(getStart() + position);
@@ -166,13 +167,23 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
     }
 
     public interface OnItemClickListener {
-        void onClick(View view, int postion);
+        void onClick(View view, int position);
     }
 
-    protected OnItemClickListener listener;
+    protected OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
+        this.onItemClickListener = listener;
+    }
+
+    public interface OnItemLongClickListener {
+        boolean onLongClick(View view, int position);
+    }
+
+    protected OnItemLongClickListener onItemLongClickListener;
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.onItemLongClickListener = listener;
     }
 
 }

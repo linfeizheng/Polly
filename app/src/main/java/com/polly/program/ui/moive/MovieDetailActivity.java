@@ -1,5 +1,6 @@
 package com.polly.program.ui.moive;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.polly.program.Constants;
@@ -63,6 +65,10 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     TextView mTvRate;
     @Bind(R.id.tv_movie_summary)
     TextView mTvSummary;
+    @Bind(R.id.llyt_movie_detail_arrow)
+    LinearLayout mLlytArrow;
+    @Bind(R.id.iv_movie_detail_arrow)
+    ImageView mIvArrow;
     @Bind(R.id.recyclerview_movie_director)
     RecyclerView mRvDirector;
     @Bind(R.id.recyclerview_movie_cast)
@@ -79,6 +85,12 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     private int RED;
     private int GREEN;
     private int BLUE;
+
+    private int maxLine;
+    public static final int minLine = 5;
+    private int maxHeight;
+    private int minHeight;
+    private boolean isOpen;
 
     @Override
     protected int getLayoutId() {
@@ -125,6 +137,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     protected void initListener() {
         mTvBack.setOnClickListener(this);
         mIvShare.setOnClickListener(this);
+        mLlytArrow.setOnClickListener(this);
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -153,6 +166,30 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
                 } else {
                     toast("分享失败");
                 }
+                break;
+            case R.id.llyt_movie_detail_arrow:
+                ValueAnimator animator;
+                if (isOpen) {
+                    animator = ValueAnimator.ofInt(maxHeight, minHeight);
+                } else {
+                    animator = ValueAnimator.ofInt(minHeight, maxHeight);
+                }
+                isOpen = !isOpen;
+                mTvSummary.setMaxLines(maxLine);
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mTvSummary.getLayoutParams();
+                        int height = (int) animation.getAnimatedValue();
+                        params.height = height;
+                        mTvSummary.setLayoutParams(params);
+                        mIvArrow.setRotation((height - minHeight) * 180 / (maxHeight - minHeight));
+                    }
+                });
+                animator.setDuration(500);
+                animator.start();
+                break;
+            default:
                 break;
         }
     }
@@ -184,8 +221,20 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         mTvNumber.setText(response.getRatings_count() != null ? "(" + response.getRatings_count() + ")" : "");
         mTvRate.setText((response.getRating() != null && response.getRating().getAverage() != null) ? response.getRating().getAverage().toString() : "");
         mTvSummary.setText(response.getSummary() != null ? "\u3000\u3000" + response.getSummary() : "");
+
+        //展开收缩的初始化
+        maxLine = mTvSummary.getLineCount();
+        maxHeight = maxLine * mTvSummary.getLineHeight();
+        minHeight = minLine * mTvSummary.getLineHeight();
+        if (minLine >= maxLine) {
+            mLlytArrow.setVisibility(View.GONE);
+        } else {
+            mTvSummary.setMaxLines(minLine);
+        }
+
         mDirectorAdapter.setData(response.getDirectors());
-        mCastAdapter.setData(response.getCasts().addAll(response.getCasts()) ? response.getCasts() : response.getCasts());
+        response.getCasts().addAll(response.getCasts());
+        mCastAdapter.setData(response.getCasts());
     }
 
     public static Intent getIntent(Activity activity, SubjectsResponse subject) {

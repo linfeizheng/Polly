@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:gravity="center"
+        android:text="是否删除该消息？"
+        android:textColor="@color/font_gray2"
+        android:textSize="@dimen/font_m" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E8E8E8" />
+
+    <TextView
+        android:id="@+id/tv_bottom_sheet_mark"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector_bg"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/font_red"
+        android:textSize="@dimen/font_l" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="#E8E8E8" />
+
+    <TextView
+        android:id="@+id/tv_bottom_sheet_delete"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector_bg"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/font_l" />
+
+</LinearLayout>

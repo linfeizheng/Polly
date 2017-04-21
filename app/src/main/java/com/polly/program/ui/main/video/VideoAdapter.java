@@ -36,8 +36,8 @@ public class VideoAdapter extends BaseAdapter<VideoResponse.Video, VideoAdapter.
         holder.mIvVideo.setOnClickListener(new OnClickEvent() {
             @Override
             public void onSingleClick(View v) {
-                if (listener != null) {
-                    listener.onClick(holder.itemView, position);
+                if (onItemClickListener != null) {
+                    onItemClickListener.onClick(holder.itemView, position);
                 }
             }
         });

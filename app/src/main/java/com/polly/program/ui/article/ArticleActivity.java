@@ -51,7 +51,7 @@ public class ArticleActivity extends BaseActivity {
         mIvShare.setOnClickListener(new OnClickEvent() {
             @Override
             public void onSingleClick(View v) {
-                Utils.share(mContext, title + " " + url);
+                Utils.share(mContext, url);
             }
         });
     }

@@ -1,17 +1,23 @@
 package com.polly.program.ui.main.home.list;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.Toast;
 
 import com.polly.program.Constants;
 import com.polly.program.R;
+import com.polly.program.base.BaseAdapter;
 import com.polly.program.base.BaseFragment;
 import com.polly.program.bean.response.GankIoResponse;
+import com.polly.program.ui.article.ArticleActivity;
 import com.polly.program.ui.main.home.HomeContract;
 import com.polly.program.ui.main.home.HomePresenter;
 import com.polly.program.widget.Banner;
+import com.polly.program.widget.BottomSheetDialogWrapper;
 import com.polly.program.widget.LoadRecyclerView;
 
 import java.util.List;
@@ -59,17 +65,17 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
     @Override
     protected void initData() {
         mPresenter = new HomePresenter(this);
-    }
-
-    @Override
-    protected void lazyLoad() {
-        page = 0;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mAdapter = new HomeListAdapter(mContext);
         mAdapter.setPullLoadEnabled(true);
         ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(mAdapter);
         scaleInAnimationAdapter.setFirstOnly(false);
         mRecyclerView.setAdapter(scaleInAnimationAdapter);
+    }
+
+    @Override
+    protected void lazyLoad() {
+        page = 0;
         if ("Android".equals(tabName)) {
             mPresenter.getBannerImage();
         } else {
@@ -83,6 +89,34 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
             @Override
             public void onLoadMore() {
                 mPresenter.getData(tabName, page);
+            }
+        });
+        mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int postion) {
+                GankIoResponse response = mAdapter.getItem(postion);
+                Intent intent = new Intent(mContext, ArticleActivity.class);
+                intent.putExtra(Constants.INTENT_EXTRA_ID, response.getUrl());
+                intent.putExtra(Constants.INTENT_EXTRA_TITLE, response.getDesc());
+                startActivity(intent);
+            }
+        });
+        mAdapter.setOnItemLongClickListener(new BaseAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onLongClick(View view, final int position) {
+                final BottomSheetDialogWrapper bottomSheetDialogWrapper = new BottomSheetDialogWrapper(mContext, new BottomSheetDialogWrapper.Callback() {
+                    @Override
+                    public void callback(BottomSheetDialog dialog, String text) {
+                        dialog.dismiss();
+                        if ("确定".equals(text)) {
+                            mAdapter.remove(position);
+                        } else if ("取消".equals(text)) {
+
+                        }
+                    }
+                });
+                bottomSheetDialogWrapper.show();
+                return true;
             }
         });
     }
