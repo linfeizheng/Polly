@@ -5,8 +5,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.design.widget.AppBarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -34,16 +35,10 @@ import butterknife.Bind;
 
 public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> implements MovieDetailContract.View {
 
-    @Bind(R.id.appbar_movie)
-    AppBarLayout mAppBarLayout;
-    @Bind(R.id.toolbar_movie)
-    Toolbar mToolbar;
-    @Bind(R.id.tv_title_back)
-    TextView mTvBack;
     @Bind(R.id.iv_title_share)
     ImageView mIvShare;
-    @Bind(R.id.tv_title)
-    TextView mTvTitle;
+    @Bind(R.id.scrollview_movie)
+    NestedScrollView mScrollView;
     @Bind(R.id.iv_movie_bg)
     ImageView mIvBackground;
     @Bind(R.id.iv_movie_photo)
@@ -85,16 +80,17 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
 
     public static final String TRANSIT_PIC = "picture";
 
-    private int RED;
-    private int GREEN;
-    private int BLUE;
-
     private int maxLine;
     public static final int minLine = 5;
     private int maxHeight;
     private int minHeight;
     private boolean isOpen;
-//http://blog.csdn.net/tiankong1206/article/details/50696887
+    private int offset;
+
+    private int RED;
+    private int GREEN;
+    private int BLUE;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_movie;
@@ -109,12 +105,13 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-        int backgroundColor = getResources().getColor(R.color.colorPrimary);
+        int backgroundColor = ContextCompat.getColor(mContext, R.color.colorPrimary);
         RED = Color.red(backgroundColor);
         GREEN = Color.green(backgroundColor);
         BLUE = Color.blue(backgroundColor);
         mToolbar.setBackgroundColor(Color.argb(0, RED, GREEN, BLUE));
-        mTvTitle.setText(subject.getTitle());
+        setBack();
+        setTitle(subject.getTitle());
     }
 
     @Override
@@ -138,21 +135,28 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
 
     @Override
     protected void initListener() {
-        mTvBack.setOnClickListener(this);
         mIvShare.setOnClickListener(this);
         mLlytArrow.setOnClickListener(this);
-        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+        mToolbar.post(new Runnable() {
             @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                int scrollRange = appBarLayout.getTotalScrollRange();
-                int offSetAbs = Math.abs(verticalOffset);
-                float percentage = (float) (offSetAbs) / (float) (scrollRange);
-                if (percentage > 0.9f && mTvTitle.getVisibility() == View.GONE) {
+            public void run() {
+                offset = getResources().getDimensionPixelOffset(R.dimen.movie_header_height) - mToolbar.getHeight();
+            }
+        });
+        mScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY <= 0) {  //alpha为0
+                    mToolbar.setBackgroundColor(Color.argb(0, RED, GREEN, BLUE));
+                } else if (scrollY > 0 && scrollY < offset) { //alpha为0到255
+                    float precent = (float) scrollY / offset;
+                    int alpha = (int) (precent * 255);
+                    mToolbar.setBackgroundColor(Color.argb(alpha, RED, GREEN, BLUE));
+                    mTvTitle.setVisibility(View.INVISIBLE);
+                } else if (scrollY >= offset) {  //alpha为255
+                    mToolbar.setBackgroundColor(Color.argb(255, RED, GREEN, BLUE));
                     mTvTitle.setVisibility(View.VISIBLE);
-                } else if (percentage < 0.9f && mTvTitle.getVisibility() == View.VISIBLE) {
-                    mTvTitle.setVisibility(View.GONE);
                 }
-                mToolbar.setBackgroundColor(Color.argb((int) (percentage * 255), RED, GREEN, BLUE));
             }
         });
     }
@@ -160,9 +164,6 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_title_back:
-                onBackPressed();
-                break;
             case R.id.iv_title_share:
                 if (movieDetail != null && !StringUtil.isTrimBlank(movieDetail.getAlt())) {
                     Utils.share(mContext, movieDetail.getAlt());
@@ -203,7 +204,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         movieDetail = response;
         mTvName.setText(response.getTitle() != null ? response.getTitle() : "");
         mTvOriginalName.setText(response.getOriginal_title() != null ? response.getOriginal_title() : "");
-        StringBuffer types = new StringBuffer();
+        StringBuilder types = new StringBuilder();
         if (response.getGenres() != null) {
             for (String genry : response.getGenres()) {
                 types.append(genry);
@@ -211,7 +212,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
             }
             mTvGenres.setText(types.toString().substring(0, types.length() - 3));
         }
-        StringBuffer countries = new StringBuffer();
+        StringBuilder countries = new StringBuilder();
         if (response.getCountries() != null) {
             for (String country : response.getCountries()) {
                 countries.append(country);

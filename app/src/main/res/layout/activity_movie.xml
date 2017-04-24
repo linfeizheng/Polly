@@ -3,31 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_movie"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollview_movie"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.CollapsingToolbarLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <!--app:statusBarScrim="@android:color/transparent"
-            app:contentScrim="?attr/colorPrimary"-->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:fitsSystemWindows="true"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.7">
+                android:layout_height="@dimen/movie_header_height">
 
                 <ImageView
                     android:id="@+id/iv_movie_bg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:contentDescription="@null"
                     android:scaleType="fitXY" />
 
                 <LinearLayout
@@ -43,6 +37,7 @@
                         android:layout_height="148dp"
                         android:layout_marginLeft="@dimen/dp20"
                         android:layout_marginRight="@dimen/dp20"
+                        android:contentDescription="@null"
                         android:scaleType="centerCrop" />
 
                     <LinearLayout
@@ -102,14 +97,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@android:color/white"
-                                android:textSize="@dimen/font_m" />
+                                android:textSize="@dimen/font_s" />
 
                             <TextView
                                 android:id="@+id/tv_movie_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@android:color/white"
-                                android:textSize="@dimen/font_s" />
+                                android:textSize="@dimen/font_ss" />
 
                         </LinearLayout>
 
@@ -141,72 +136,6 @@
                 </LinearLayout>
 
             </FrameLayout>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_movie"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp50"
-                android:background="@color/colorPrimary"
-                app:contentInsetStart="@dimen/dp0"
-                app:layout_collapseMode="pin">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/tv_title_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:background="@null"
-                        android:contentDescription="@null"
-                        android:drawableLeft="@mipmap/ic_back"
-                        android:drawablePadding="@dimen/dp5"
-                        android:gravity="center"
-                        android:paddingLeft="@dimen/dp10"
-                        android:paddingRight="@dimen/dp10" />
-
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:ellipsize="marquee"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:gravity="center"
-                        android:maxEms="10"
-                        android:singleLine="true"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/font_xl"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/iv_title_share"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:paddingLeft="@dimen/dp5"
-                        android:paddingRight="@dimen/dp10"
-                        android:src="@drawable/ic_share" />
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:orientation="vertical">
 
             <include layout="@layout/view_status" />
 
@@ -248,6 +177,7 @@
                     android:id="@+id/iv_movie_detail_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@null"
                     android:src="@mipmap/ic_expand_more" />
             </LinearLayout>
 
@@ -285,5 +215,59 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/llyt_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true"
+        app:contentInsetStart="@dimen/dp0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50">
+
+            <TextView
+                android:id="@+id/tv_title_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:drawableLeft="@mipmap/ic_back"
+                android:drawablePadding="@dimen/dp5"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp10"
+                android:paddingRight="@dimen/dp10" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:maxEms="10"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_xl"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/iv_title_share"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@null"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp10"
+                android:src="@drawable/ic_share" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.CoordinatorLayout>
