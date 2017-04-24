@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.polly.program.Constants;
@@ -63,6 +64,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     TextView mTvNumber;
     @Bind(R.id.tv_movie_rate)
     TextView mTvRate;
+    @Bind(R.id.rate_movie_detail)
+    RatingBar mRatingBar;
     @Bind(R.id.tv_movie_summary)
     TextView mTvSummary;
     @Bind(R.id.llyt_movie_detail_arrow)
@@ -91,7 +94,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     private int maxHeight;
     private int minHeight;
     private boolean isOpen;
-
+//http://blog.csdn.net/tiankong1206/article/details/50696887
     @Override
     protected int getLayoutId() {
         return R.layout.activity_movie;
@@ -220,6 +223,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         mTvRateTitle.setText("用户评分");
         mTvNumber.setText(response.getRatings_count() != null ? "(" + response.getRatings_count() + ")" : "");
         mTvRate.setText((response.getRating() != null && response.getRating().getAverage() != null) ? response.getRating().getAverage().toString() : "");
+        mRatingBar.setRating(response.getRating().getAverage().floatValue() / 2);
         mTvSummary.setText(response.getSummary() != null ? "\u3000\u3000" + response.getSummary() : "");
 
         //展开收缩的初始化
