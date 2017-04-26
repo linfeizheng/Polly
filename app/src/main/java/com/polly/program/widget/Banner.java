@@ -34,7 +34,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     @Bind(R.id.llyt_looper_dot)
     LinearLayout mDotLayout;
 
-    private Handler mHandler;
+    private static Handler mHandler;
 
     public Banner(Context context) {
         super(context);

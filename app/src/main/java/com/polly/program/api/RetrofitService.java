@@ -4,7 +4,6 @@ import com.polly.program.bean.response.BaseResponse;
 import com.polly.program.bean.response.GankIoResponse;
 import com.polly.program.bean.response.MovieDetailResponse;
 import com.polly.program.bean.response.MovieResponse;
-import com.polly.program.bean.response.PersonResponse;
 import com.polly.program.bean.response.VideoResponse;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.polly.program.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -35,6 +36,7 @@ public class CustomWebView extends WebView {
         appCacheDir = context.getApplicationContext().getDir("cache", Context.MODE_PRIVATE).getPath();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initSettings() {
         // 初始化设置
         WebSettings mSettings = this.getSettings();

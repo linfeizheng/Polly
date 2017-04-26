@@ -17,9 +17,9 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
     /**
      * 最多一个header一个footer
      */
-    public static final int TYPE_HEADER = -1;
-    public static final int TYPE_NORMAL = -2;
-    public static final int TYPE_FOOTER = -3;
+    private static final int TYPE_HEADER = -1;
+    private static final int TYPE_NORMAL = -2;
+    private static final int TYPE_FOOTER = -3;
 
     private View headerView;
     private FooterView footerView;
@@ -27,7 +27,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
     protected Context mContext;
     protected List<T> mData;
 
-    protected LayoutInflater mInflater;
+    private LayoutInflater mInflater;
 
     public BaseAdapter(Context mContext) {
         this.mContext = mContext;
@@ -108,7 +108,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         }
     }
 
-    public abstract void onBindViewHolderExtend(VH holder, int position);
+    protected abstract void onBindViewHolderExtend(VH holder, int position);
 
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -122,7 +122,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         }
     }
 
-    public abstract int getItemViewLayoutId();
+    protected abstract int getItemViewLayoutId();
 
     @Override
     public final int getItemViewType(int position) {
@@ -152,7 +152,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         return getStart() > 0 && position == 0;
     }
 
-    public abstract VH getViewHolder(View view);
+    protected abstract VH getViewHolder(View view);
 
     public abstract class BaseHolder extends RecyclerView.ViewHolder {
 

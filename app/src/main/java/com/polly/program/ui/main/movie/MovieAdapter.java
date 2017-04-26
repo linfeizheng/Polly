@@ -2,7 +2,6 @@ package com.polly.program.ui.main.movie;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,7 +31,7 @@ public class MovieAdapter extends BaseAdapter<SubjectsResponse, MovieAdapter.Hol
         SubjectsResponse subject = getItem(position);
         ImageUtil.loadImg(mContext, subject.getImages().getMedium(), holder.mIvPicture);
         holder.mTvTitle.setText(subject.getTitle() != null ? subject.getTitle() : "");
-        StringBuffer directors = new StringBuffer();
+        StringBuilder directors = new StringBuilder();
         if (subject.getDirectors() != null) {
             for (PersonResponse person : subject.getDirectors()) {
                 directors.append(person.getName());
@@ -40,7 +39,7 @@ public class MovieAdapter extends BaseAdapter<SubjectsResponse, MovieAdapter.Hol
             }
             holder.mTvDirector.setText(directors.toString().substring(0, directors.length() - 3));
         }
-        StringBuffer casts = new StringBuffer();
+        StringBuilder casts = new StringBuilder();
         if (subject.getCasts() != null) {
             for (PersonResponse person : subject.getCasts()) {
                 casts.append(person.getName());
@@ -48,7 +47,7 @@ public class MovieAdapter extends BaseAdapter<SubjectsResponse, MovieAdapter.Hol
             }
             holder.mTvCast.setText(casts.toString().substring(0, casts.length() - 3));
         }
-        StringBuffer types = new StringBuffer();
+        StringBuilder types = new StringBuilder();
         if (subject.getGenres() != null) {
             for (String genry : subject.getGenres()) {
                 types.append(genry);

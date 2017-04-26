@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/black"
-                android:descendantFocusability="blocksDescendants">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:descendantFocusability="blocksDescendants">
 
     <FrameLayout
         android:id="@+id/surface_container"
@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black"
-        android:scaleType="centerCrop"/>
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:id="@+id/layout_bottom"
@@ -35,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
             android:text="00:00"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff" />
 
         <SeekBar
             android:id="@+id/bottom_seek_progress"
@@ -52,14 +53,14 @@
             android:paddingRight="12dp"
             android:paddingTop="8dp"
             android:progressDrawable="@drawable/jc_bottom_seek_progress"
-            android:thumb="@drawable/jc_bottom_seek_thumb"/>
+            android:thumb="@drawable/jc_bottom_seek_thumb" />
 
         <TextView
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:00"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff" />
 
         <ImageView
             android:id="@+id/fullscreen"
@@ -67,8 +68,9 @@
             android:layout_height="fill_parent"
             android:layout_marginLeft="14.0dip"
             android:layout_marginRight="14.0dip"
+            android:contentDescription="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/jc_enlarge"/>
+            android:src="@drawable/jc_enlarge" />
     </LinearLayout>
 
     <ProgressBar
@@ -78,7 +80,7 @@
         android:layout_height="1.5dp"
         android:layout_alignParentBottom="true"
         android:max="100"
-        android:progressDrawable="@drawable/jc_bottom_progress"/>
+        android:progressDrawable="@drawable/jc_bottom_progress" />
 
     <ImageView
         android:id="@+id/back_tiny"
@@ -87,7 +89,8 @@
         android:layout_marginLeft="6dp"
         android:layout_marginTop="6dp"
         android:background="@drawable/jc_click_back_tiny_selector"
-        android:visibility="visible"/>
+        android:contentDescription="@null"
+        android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/layout_top"
@@ -100,8 +103,9 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@null"
             android:paddingLeft="14dp"
-            android:src="@mipmap/ic_back"/>
+            android:src="@mipmap/ic_back" />
 
         <TextView
             android:id="@+id/title"
@@ -109,7 +113,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:textColor="@android:color/white"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
     </LinearLayout>
 
     <ProgressBar
@@ -119,7 +123,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:indeterminateDrawable="@drawable/jc_loading"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/start"
@@ -128,6 +132,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/jc_click_play_selector"/>
+        android:contentDescription="@null"
+        android:src="@drawable/jc_click_play_selector" />
 
 </RelativeLayout>

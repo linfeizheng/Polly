@@ -9,6 +9,7 @@
         android:id="@+id/iv_movie_detail_photo"
         android:layout_width="88dp"
         android:layout_height="130dp"
+        android:contentDescription="@null"
         android:scaleType="centerCrop" />
 
     <TextView

@@ -17,6 +17,9 @@ import com.polly.program.widget.CustomWebView;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 
 public class ArticleActivity extends BaseActivity {
@@ -26,7 +29,6 @@ public class ArticleActivity extends BaseActivity {
     @Bind(R.id.webview_article)
     CustomWebView mWebView;
 
-    private String title;
     private String url;
 
     @Override
@@ -36,10 +38,12 @@ public class ArticleActivity extends BaseActivity {
 
     @Override
     protected void initTitleBar() {
+        List<String> list = new ArrayList<>();
+        list.remove("");
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         url = getIntent().getStringExtra(Constants.INTENT_EXTRA_ID);
-        title = getIntent().getStringExtra(Constants.INTENT_EXTRA_TITLE);
+        String title = getIntent().getStringExtra(Constants.INTENT_EXTRA_TITLE);
         if (title != null) {
             setTitle(title);
         }

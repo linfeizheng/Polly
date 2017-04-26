@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompatActivity implements View.OnClickListener, IBaseView {
 
     protected AppCompatActivity mContext;
-    protected Toolbar mTitleLayout;
+    protected Toolbar mToolbar;
     protected TextView mTvTitle;
 
     protected P mPresenter;
@@ -38,7 +38,7 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
         mContext = this;
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-        mTitleLayout = (Toolbar) findViewById(R.id.llyt_header);
+        mToolbar = (Toolbar) findViewById(R.id.llyt_header);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         ApplicationUtil.addActivity(this);
         initTitleBar();
@@ -60,7 +60,7 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
         }
     }
 
-    public void setBack() {
+    protected void setBack() {
         TextView imageBack = (TextView) findViewById(R.id.tv_title_back);
         if (imageBack != null) {
             imageBack.setVisibility(View.VISIBLE);
@@ -200,9 +200,9 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
     private boolean mIsHidden;
 
     public void hideOrShowTitlebar() {
-        if (mTitleLayout != null) {
-            mTitleLayout.animate()
-                    .translationY(mIsHidden ? 0 : -mTitleLayout.getHeight())
+        if (mToolbar != null) {
+            mToolbar.animate()
+                    .translationY(mIsHidden ? 0 : -mToolbar.getHeight())
                     .setInterpolator(new DecelerateInterpolator(2))
                     .start();
             mIsHidden = !mIsHidden;

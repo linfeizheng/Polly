@@ -112,8 +112,8 @@ public class RetrofitManager {
 
         @Override
         public Response intercept(Chain chain) throws IOException {
-            StringBuffer requestBuffer = new StringBuffer();
-            requestBuffer.append("开始请求：" + "\n");
+            StringBuilder requestBuilder = new StringBuilder();
+            requestBuilder.append("开始请求：" + "\n");
             Request request = chain.request();
             RequestBody requestBody = request.body();
             boolean hasRequestBody = requestBody != null;
@@ -121,21 +121,21 @@ public class RetrofitManager {
             Connection connection = chain.connection();
             Protocol protocol = connection != null ? connection.protocol() : Protocol.HTTP_1_1;
             String requestStartMessage = "--> " + request.method() + ' ' + request.url() + ' ' + protocol;
-            requestBuffer.append(requestStartMessage + "\n");
+            requestBuilder.append(requestStartMessage + "\n");
             if (hasRequestBody) {
                 if (requestBody.contentType() != null) {
-                    requestBuffer.append("Content-Type: " + requestBody.contentType() + "\n");
+                    requestBuilder.append("Content-Type: " + requestBody.contentType() + "\n");
                 }
                 if (requestBody.contentLength() != -1) {
-                    requestBuffer.append("Content-Length: " + requestBody.contentLength() + "\n");
+                    requestBuilder.append("Content-Length: " + requestBody.contentLength() + "\n");
                 }
             }
-            requestBuffer.append("请求头:" + "\n");
+            requestBuilder.append("请求头:" + "\n");
             Headers headers = request.headers();
             for (int i = 0, count = headers.size(); i < count; i++) {
                 String name = headers.name(i);
                 if (!"Content-Type".equalsIgnoreCase(name) && !"Content-Length".equalsIgnoreCase(name)) {
-                    requestBuffer.append(name + ": " + headers.value(i) + "\n");
+                    requestBuilder.append(name + ": " + headers.value(i) + "\n");
                 }
             }
             Buffer buffer1 = new Buffer();
@@ -145,9 +145,9 @@ public class RetrofitManager {
             if (contentType != null) {
                 charset1 = contentType.charset(UTF8);
             }
-            requestBuffer.append("参数：" + buffer1.readString(charset1) + "\n");
-            requestBuffer.append("结束请求");
-            Logger.i(requestBuffer.toString());
+            requestBuilder.append("参数：" + buffer1.readString(charset1) + "\n");
+            requestBuilder.append("结束请求");
+            Logger.i(requestBuilder.toString());
 
             Response response;
             try {

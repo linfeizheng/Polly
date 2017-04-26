@@ -11,12 +11,12 @@ import com.polly.program.bean.response.MovieDetailResponse;
 public interface MovieDetailContract {
 
     interface View extends IBaseView {
-        public void showData(MovieDetailResponse response);
+        void showData(MovieDetailResponse response);
     }
 
     interface Presenter extends BasePresenter {
 
-        public void getMovieDetail(String id);
+        void getMovieDetail(String id);
 
     }
 

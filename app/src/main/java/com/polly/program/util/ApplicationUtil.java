@@ -33,10 +33,8 @@ public class ApplicationUtil {
      * 销毁其它Activity
      */
     public static void exit() {
-        if (activities != null && activities.size() > 0) {
-            for (Activity activity : activities) {
-                activity.finish();
-            }
+        for (Activity activity : activities) {
+            activity.finish();
         }
     }
 

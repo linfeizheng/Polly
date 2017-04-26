@@ -9,10 +9,9 @@ import android.telephony.TelephonyManager;
 import com.orhanobut.logger.Logger;
 
 public class DeviceUtil {
+
   /**
    * 重启应用
-   * 
-   * @param context
    */
   public static void restartApp(Context context) {
     Intent i = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());

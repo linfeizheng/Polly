@@ -1,13 +1,10 @@
 package com.polly.program.ui.main.video;
 
 import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.polly.program.Constants;
 import com.polly.program.R;
@@ -20,7 +17,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import rx.Observable;
-import rx.Subscriber;
 import rx.functions.Action1;
 
 /**

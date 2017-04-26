@@ -18,7 +18,6 @@ import com.polly.program.ui.main.MainActivity;
 import com.polly.program.util.AnimationUtil;
 import com.polly.program.util.OnClickEvent;
 import com.polly.program.util.SharedPreferencesUtil;
-import com.polly.program.widget.StatusBarCompat;
 import com.polly.program.widget.ToastEx;
 
 import butterknife.ButterKnife;
@@ -65,7 +64,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     protected abstract void initListener();
 
-    public void setTitle(String title) {
+    protected void setTitle(String title) {
         if (mTvTitle != null)
             mTvTitle.setText(title != null ? title : "");
     }

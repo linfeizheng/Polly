@@ -12,6 +12,7 @@
         android:id="@+id/iv_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@null"
         android:src="@mipmap/ws_ic_no_data" />
 
     <TextView

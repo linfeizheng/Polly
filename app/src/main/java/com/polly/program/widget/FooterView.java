@@ -1,6 +1,7 @@
 package com.polly.program.widget;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -15,7 +16,7 @@ import com.polly.program.util.ScreenUtil;
  * @date 2017/1/12 14:16
  */
 
-public class FooterView extends TextView {
+public class FooterView extends android.support.v7.widget.AppCompatTextView {
 
     public FooterView(Context context) {
         this(context, null);
@@ -31,10 +32,10 @@ public class FooterView extends TextView {
     }
 
     public void init(Context context) {
-        setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.dp2px(context, 50));
         setLayoutParams(params);
-        setTextColor(getResources().getColor(R.color.font_gray1));
+        setTextColor(ContextCompat.getColor(context, R.color.font_gray1));
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         setGravity(Gravity.CENTER);
         setText("加载中...");

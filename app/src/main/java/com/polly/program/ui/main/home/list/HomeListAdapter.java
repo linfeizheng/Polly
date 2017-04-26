@@ -53,9 +53,7 @@ public class HomeListAdapter extends BaseAdapter<GankIoResponse, HomeListAdapter
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (onItemLongClickListener != null)
-                    return onItemLongClickListener.onLongClick(holder.itemView, position);
-                return false;
+                return onItemLongClickListener != null && onItemLongClickListener.onLongClick(holder.itemView, position);
             }
         });
     }

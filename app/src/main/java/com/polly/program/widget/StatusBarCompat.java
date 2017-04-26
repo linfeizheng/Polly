@@ -3,6 +3,7 @@ package com.polly.program.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -13,7 +14,7 @@ import com.polly.program.R;
 
 public class StatusBarCompat {
 
-    private static final int COLOR_DEFAULT = App.getInstance().getResources().getColor(R.color.colorPrimary);
+    private static final int COLOR_DEFAULT = ContextCompat.getColor(App.getInstance(), R.color.colorPrimary);
 
     public static void compat(Activity activity, int statusColor) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

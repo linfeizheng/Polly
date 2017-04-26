@@ -31,7 +31,6 @@ import com.polly.program.base.BaseActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class PictureActivity extends BaseActivity {

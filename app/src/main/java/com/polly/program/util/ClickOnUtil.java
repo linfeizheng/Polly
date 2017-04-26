@@ -6,8 +6,6 @@ public class ClickOnUtil {
 
     /**
      * 是否快速双击
-     *
-     * @return
      */
     public static boolean isDoubleClickQuickly() {
         long currentTime = System.currentTimeMillis();

@@ -14,12 +14,12 @@ import java.util.List;
 public interface MeiziContract {
 
     interface View extends IBaseView {
-        public void showData(List<GankIoResponse> imgUrls);
+        void showData(List<GankIoResponse> imgUrls);
     }
 
     interface Presenter extends BasePresenter {
 
-        public void getData(int page);
+        void getData(int page);
 
     }
 

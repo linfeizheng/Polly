@@ -2,13 +2,11 @@ package com.polly.program.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 /**
  * 宽高一致的ImageView
  */
-public class EqualSizeImageView extends ImageView {
+public class EqualSizeImageView extends android.support.v7.widget.AppCompatImageView {
 
     public EqualSizeImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

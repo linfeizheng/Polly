@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.Toast;
 
 import com.polly.program.Constants;
 import com.polly.program.R;
@@ -38,7 +37,6 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
     LoadRecyclerView mRecyclerView;
 
     private HomeListAdapter mAdapter;
-    private BannerAdapter mBannerAdapter;
 
     private Banner banner;
 
@@ -129,7 +127,7 @@ public class HomeListFragment extends BaseFragment<HomePresenter> implements Hom
     @Override
     public void showBanner(String[] images) {
         banner = new Banner(mContext);
-        mBannerAdapter = new BannerAdapter(mContext, images);
+        BannerAdapter mBannerAdapter = new BannerAdapter(mContext, images);
         banner.setLoop(true);
         banner.setAdapter(mBannerAdapter);
         mPresenter.getData(tabName, page);

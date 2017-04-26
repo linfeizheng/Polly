@@ -3,6 +3,7 @@ package com.polly.program.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -32,7 +33,7 @@ public class WebViewProgressBar extends View {
         paint.setStrokeWidth(HEIGHT);//设置画笔的宽度
         paint.setAntiAlias(true);// 抗锯齿
         paint.setDither(true);// 使用抖动效果
-        paint.setColor(context.getResources().getColor(R.color.colorPrimaryDark));//画笔设置颜色
+        paint.setColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));//画笔设置颜色
     }
 
     public void setProgress(int progress) {
